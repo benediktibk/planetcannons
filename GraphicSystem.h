@@ -2,6 +2,7 @@
 #define PLANETCANNONS_GRAPHICSYSTEM_H
 
 #include "IGraphicSystem.h"
+#include <vector>
 
 class ILogger;
 class GLFWwindow;
@@ -12,14 +13,13 @@ class GraphicSystem : public IGraphicSystem {
         virtual ~GraphicSystem();
         virtual void update();
         virtual bool closeRequested();
-
-    private:
+        virtual void add(IGraphicObject *graphicObject);
 
     private:
         const ILogger &m_logger;
         GLFWwindow *m_window;
-        unsigned int m_vertexbuffer;
         bool m_initialzed;
+        std::vector<IGraphicObject*> m_objects;
 };
 
 #endif
