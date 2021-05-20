@@ -36,8 +36,6 @@ GraphicSystem::GraphicSystem(const ILogger &logger) :
         return;
 	}
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
 	glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
 	glClearColor(0.0f, 0.0f, 0.1f, 0.0f);
 
