@@ -4,6 +4,7 @@
 class IGraphicSystem {
     public:
         virtual void update() = 0;
+        virtual bool closeRequested() = 0;
 
         IGraphicSystem() {};
         ~IGraphicSystem() {};
