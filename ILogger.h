@@ -5,7 +5,14 @@
 
 class ILogger {
     public:
-        virtual void debug(std::string message) = 0;
+        virtual void debug(const std::string &message) const = 0;
+
+        ILogger() {};
+        virtual ~ILogger() {};
+
+    private:
+        ILogger(const ILogger&) {};
+        void operator=(const ILogger&) {};
 };
 
 #endif

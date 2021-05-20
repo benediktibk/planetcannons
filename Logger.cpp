@@ -3,6 +3,6 @@
 
 using namespace std;
 
-void Logger::debug(string message) {
+void Logger::debug(const string &message) const {
     cout << message << endl;
 }

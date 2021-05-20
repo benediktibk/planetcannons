@@ -1,3 +1,5 @@
+#include "GraphicSystem.h"
+#include "Logger.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,7 +12,8 @@ GLFWwindow* window;
 using namespace glm;
 
 int main() {
-
+	Logger logger;
+	GraphicSystem graphicSystem(logger);
 	// Initialise GLFW
 	if( !glfwInit() )
 	{

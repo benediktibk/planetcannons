@@ -5,7 +5,7 @@
 
 class Logger : public ILogger {
     public:
-        virtual void debug(std::string message);
+        virtual void debug(const std::string &message) const;
 };
 
 #endif
