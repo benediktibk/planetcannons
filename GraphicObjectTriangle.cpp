@@ -12,16 +12,9 @@ GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, floa
 
     glGenVertexArrays(1, &m_vertexArray);
     glBindVertexArray(m_vertexArray);
-
-    static const GLfloat g_vertex_buffer_data[] = {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        0.0f,  1.0f, 0.0f,
-    };
-
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_coordinates), m_coordinates, GL_STATIC_DRAW);
 }
 
 GraphicObjectTriangle::~GraphicObjectTriangle() {
