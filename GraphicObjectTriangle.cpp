@@ -10,9 +10,8 @@ GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, floa
 
     setPoints(pointOne, pointTwo, pointThree);
 
-    GLuint VertexArrayID;
-    glGenVertexArrays(1, &VertexArrayID);
-    glBindVertexArray(VertexArrayID);
+    glGenVertexArrays(1, &m_vertexArray);
+    glBindVertexArray(m_vertexArray);
 
     // An array of 3 vectors which represents 3 vertices
     static const GLfloat g_vertex_buffer_data[] = {
