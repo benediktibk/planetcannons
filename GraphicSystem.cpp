@@ -4,10 +4,28 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <sstream>
+
+static const ILogger *graphicSystemLogger;
+
+void glfwErrorCallback(int error, const char* description) {
+    if (graphicSystemLogger == 0) {
+        return;
+    }
+
+    std::stringstream logStream;
+    logStream << "error " << error << " occurred: " << description;
+    graphicSystemLogger->error(logStream.str());
+}
 
 GraphicSystem::GraphicSystem(const ILogger &logger) :
     m_logger(logger),
     m_initialzed(false) {
+    graphicSystemLogger = &logger;
+    std::stringstream logStream;
+    logStream << "starting GLFW " << glfwGetVersionString();
+    m_logger.info(logStream.str());
+    glfwSetErrorCallback(glfwErrorCallback);
     bool success = glfwInit();
 
     if(!success) {
