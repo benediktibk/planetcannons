@@ -6,10 +6,6 @@
 
 GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree, const ShaderProgram &shaderProgram) :
     m_shaderProgram(shaderProgram) {
-    for (auto i = 0; i < 9; ++i) {
-        m_coordinates[i] = 0;
-    }
-
     setPoints(pointOne, pointTwo, pointThree);
 
     glGenVertexArrays(1, &m_vertexArray);

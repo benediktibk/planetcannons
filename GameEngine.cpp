@@ -6,6 +6,7 @@
 #include "FragmentShader.h"
 #include "ShaderProgram.h"
 #include "Clock.h"
+#include "GraphicObjectCircle.h"
 #include <unistd.h>
 #include <cmath>
 
@@ -34,16 +35,22 @@ void GameEngine::execute() {
 	ShaderProgram shaderProgram(m_logger, vertexShader, fragmentShader);
 	GraphicObjectTriangle *triangleOne = new GraphicObjectTriangle(
 		std::make_tuple(-1.0f, -1.0f, 0.0f), 
-		std::make_tuple(1.0f, -1.0f, 0.0f), 
-		std::make_tuple(0.0f, 0.0f, 0.0f),
+		std::make_tuple(-0.5f, -1.0f, 0.0f), 
+		std::make_tuple(-0.75f, 0.0f, 0.0f),
 		shaderProgram);
 	GraphicObjectTriangle *triangleTwo = new GraphicObjectTriangle(
 		std::make_tuple(-1.0f, 0.0f, 0.0f), 
-		std::make_tuple(1.0f, 0.0f, 0.0f), 
-		std::make_tuple(0.0f, 1.0f, 0.0f),
+		std::make_tuple(-0.5f, 0.0f, 0.0f), 
+		std::make_tuple(-0.75f, 1.0f, 0.0f),
 		shaderProgram);
+    GraphicObjectCircle *circle = new GraphicObjectCircle(
+		std::make_tuple(0.0f, 0.0f, 0.0f),
+        0.2,
+        10,
+        shaderProgram);
 	m_graphicSystem.add(triangleOne);
 	m_graphicSystem.add(triangleTwo);
+	m_graphicSystem.add(circle);
 
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
@@ -53,8 +60,8 @@ void GameEngine::execute() {
 
 		triangleOne->setPoints(
 			std::make_tuple(-1.0f, -1.0f, 0.0f), 
-			std::make_tuple(1.0f, -1.0f, 0.0f), 
-			std::make_tuple(0.0f, yPosition, 0.0f));
+		    std::make_tuple(-0.5f, -1.0f, 0.0f), 
+			std::make_tuple(-0.75f, yPosition, 0.0f));
 		m_graphicSystem.update();
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
