@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree) {
-    for (size_t i = 0; i < 9; ++i) {
+    for (auto i = 0; i < 9; ++i) {
         m_coordinates[i] = 0;
     }
 
@@ -12,9 +12,37 @@ GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, floa
 
     glGenVertexArrays(1, &m_vertexArray);
     glBindVertexArray(m_vertexArray);
+    glEnableVertexAttribArray(0);
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_coordinates), m_coordinates, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    const char* vertexShaderCode =
+        "#version 400\n"
+        "in vec3 vp;"
+        "void main() {"
+        "  gl_Position = vec4(vp, 1.0);"
+        "}";
+
+    const char* fragmentShaderCode =
+        "#version 400\n"
+        "out vec4 frag_colour;"
+        "void main() {"
+        "  frag_colour = vec4(0.5, 0.0, 0.5, 1.0);"
+        "}";
+
+    auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderCode, NULL);
+    glCompileShader(vertexShader);
+    auto fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderCode, NULL);
+    glCompileShader(fragmentShader);
+
+    m_shaderProgram = glCreateProgram();
+    glAttachShader(m_shaderProgram, fragmentShader);
+    glAttachShader(m_shaderProgram, vertexShader);
+    glLinkProgram(m_shaderProgram);
 }
 
 GraphicObjectTriangle::~GraphicObjectTriangle() {
@@ -35,9 +63,7 @@ void GraphicObjectTriangle::setPoints(const std::tuple<float, float, float> &poi
 }
 
 void GraphicObjectTriangle::update() const {
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glBindVertexArray(m_vertexArray);
+    glUseProgram(m_shaderProgram);
     glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDisableVertexAttribArray(0);
 }

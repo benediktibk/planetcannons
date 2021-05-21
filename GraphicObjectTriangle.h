@@ -15,6 +15,7 @@ class GraphicObjectTriangle : public IGraphicObject {
         float m_coordinates[9];
         unsigned int m_vertexBuffer;
         unsigned int m_vertexArray;
+        unsigned int m_shaderProgram;
 };
 
 #endif
