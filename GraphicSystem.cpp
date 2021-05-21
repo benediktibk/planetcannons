@@ -38,7 +38,7 @@ GraphicSystem::GraphicSystem(const ILogger &logger) :
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    m_window = glfwCreateWindow(1024, 768, "planet cannons", NULL, NULL);
+    m_window = glfwCreateWindow(800, 800, "planet cannons", NULL, NULL);
 	if(m_window == NULL) {
         m_logger.error("failed to open GLFW window");
         return;

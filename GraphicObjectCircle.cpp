@@ -67,6 +67,6 @@ void GraphicObjectCircle::update() const {
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * m_verticeCoordinateCount, m_verticesCoordinates);
     glBindVertexArray(m_vertexArray);
     m_shaderProgram.use();
-    glDrawArrays(GL_LINE_LOOP, 0, 3);
+    glDrawArrays(GL_LINE_LOOP, 0, m_verticeCount);
     glBindVertexArray(0);
 }
