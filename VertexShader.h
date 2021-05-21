@@ -1,16 +1,11 @@
 #ifndef PLANETCANNONS_VERTEXSHADER_H
 #define PLANETCANNONS_VERTEXSHADER_H
 
-class ILogger;
+#include "Shader.h"
 
-class VertexShader {
+class VertexShader : public Shader {
     public:
-        VertexShader(const ILogger &logger);
-        unsigned int getId() const;
-
-    private:
-        const ILogger &m_logger;
-        unsigned int m_shader;
+        VertexShader(const ILogger &logger, const std::string &code);
 };
 
 #endif

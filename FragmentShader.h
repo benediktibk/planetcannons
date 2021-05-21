@@ -1,16 +1,11 @@
 #ifndef PLANETCANNONS_FRAGMENTSHADER_H
 #define PLANETCANNONS_FRAGMENTSHADER_H
 
-class ILogger;
+#include "Shader.h"
 
-class FragmentShader {
+class FragmentShader : public Shader {
     public:
-        FragmentShader(const ILogger &logger);
-        unsigned int getId() const;
-
-    private:
-        const ILogger &m_logger;
-        unsigned int m_shader;
+        FragmentShader(const ILogger &logger, const std::string &code);
 };
 
 #endif

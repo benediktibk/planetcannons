@@ -7,6 +7,7 @@ class FragmentShader;
 class ShaderProgram {
     public:
         ShaderProgram(const VertexShader &vertexShader, const FragmentShader &fragmentShader);
+        ~ShaderProgram();
         void use() const;
 
     private:

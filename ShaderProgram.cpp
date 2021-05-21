@@ -12,6 +12,10 @@ ShaderProgram::ShaderProgram(const VertexShader &vertexShader, const FragmentSha
     glLinkProgram(m_shaderProgram);
 }
 
+ShaderProgram::~ShaderProgram() {
+    glDeleteProgram(m_shaderProgram);
+}
+
 void ShaderProgram::use() const {
     glUseProgram(m_shaderProgram);
 }
