@@ -44,4 +44,5 @@ void GraphicObjectTriangle::update() const {
     glBindVertexArray(m_vertexArray);
     m_shaderProgram.use();
     glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindVertexArray(0);
 }
