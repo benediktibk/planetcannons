@@ -1,10 +1,12 @@
 #include "GameEngine.h"
 #include "Logger.h"
 #include "GraphicSystem.h"
+#include "Clock.h"
 
 int main() {
     Logger logger;
 	GraphicSystem graphicSystem(logger);
-	GameEngine gameEngine(logger, graphicSystem, 60);
+	Clock clock;
+	GameEngine gameEngine(logger, graphicSystem, 60, clock);
 	gameEngine.execute();
 }
