@@ -15,7 +15,7 @@ GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, floa
     glEnableVertexAttribArray(0);
     glGenBuffers(1, &m_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_coordinates), m_coordinates, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_coordinates), m_coordinates, GL_STREAM_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
     const char* vertexShaderCode =
@@ -63,6 +63,8 @@ void GraphicObjectTriangle::setPoints(const std::tuple<float, float, float> &poi
 }
 
 void GraphicObjectTriangle::update() const {
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_coordinates), m_coordinates);
     glBindVertexArray(m_vertexArray);
     glUseProgram(m_shaderProgram);
     glDrawArrays(GL_TRIANGLES, 0, 3);
