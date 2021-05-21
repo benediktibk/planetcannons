@@ -7,9 +7,13 @@
 #include "ShaderProgram.h"
 #include <unistd.h>
 
+GameEngine::GameEngine(const ILogger &logger, GraphicSystem &graphicSystem, unsigned int maximumFramesPerSecond) :
+    m_logger(logger),
+    m_graphicSystem(graphicSystem),
+    m_maximumFramesPerSecond(maximumFramesPerSecond) {    
+}
+
 void GameEngine::execute() {
-    Logger logger;
-	GraphicSystem graphicSystem(logger);
 	VertexShader vertexShader;
 	FragmentShader fragmentShader;
 	ShaderProgram shaderProgram(vertexShader, fragmentShader);
@@ -23,13 +27,13 @@ void GameEngine::execute() {
 		std::make_tuple(1.0f, 0.0f, 0.0f), 
 		std::make_tuple(0.0f, 1.0f, 0.0f),
 		shaderProgram);
-	graphicSystem.add(triangleOne);
-	graphicSystem.add(triangleTwo);
+	m_graphicSystem.add(triangleOne);
+	m_graphicSystem.add(triangleTwo);
 
 	bool flip = false;
 
-	while (!graphicSystem.closeRequested()) {
-		graphicSystem.update();
+	while (!m_graphicSystem.closeRequested()) {
+		m_graphicSystem.update();
 		sleep(1);
 		triangleOne->setPoints(
 			std::make_tuple(-1.0f, -1.0f, 0.0f), 
