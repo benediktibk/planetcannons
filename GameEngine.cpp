@@ -55,13 +55,12 @@ void GameEngine::execute() {
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
     double minimumFrameLength = 1.0/m_maximumFramesPerSecond;
-	while (!m_graphicSystem.closeRequested()) {
-        double yPosition = sin(2 * 3.141592564 * 1 * lastTimeInMilliseconds/1000.0)/2 - 0.5;
 
-		triangleOne->setPoints(
-			std::make_tuple(-1.0f, -1.0f, 0.0f), 
-		    std::make_tuple(-0.5f, -1.0f, 0.0f), 
-			std::make_tuple(-0.75f, yPosition, 0.0f));
+    double movementFrequency = 0.5;
+	while (!m_graphicSystem.closeRequested()) {
+        double yPosition = sin(2 * 3.141592564 * movementFrequency * lastTimeInMilliseconds/1000.0)/2;
+
+		circle->setCenterPosition(std::make_tuple(0, yPosition, 0));
 		m_graphicSystem.update();
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
