@@ -16,6 +16,9 @@ class GraphicSystem : public IGraphicSystem {
         virtual void add(IGraphicObject *graphicObject);
 
     private:
+        void logOpenGlParameter();
+
+    private:
         const ILogger &m_logger;
         GLFWwindow *m_window;
         bool m_initialzed;

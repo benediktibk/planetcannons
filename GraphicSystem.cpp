@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <sstream>
+#include <cstring>
 
 static const ILogger *graphicSystemLogger;
 
@@ -22,9 +23,6 @@ GraphicSystem::GraphicSystem(const ILogger &logger) :
     m_logger(logger),
     m_initialzed(false) {
     graphicSystemLogger = &logger;
-    std::stringstream logStream;
-    logStream << "starting GLFW " << glfwGetVersionString();
-    m_logger.info(logStream.str());
     glfwSetErrorCallback(glfwErrorCallback);
     bool success = glfwInit();
 
@@ -53,6 +51,8 @@ GraphicSystem::GraphicSystem(const ILogger &logger) :
 		m_logger.error("failed to initialize GLEW");
         return;
 	}
+    
+    logOpenGlParameter();
 
 	glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GL_TRUE);
 	glClearColor(0.0f, 0.0f, 0.1f, 0.0f);
@@ -105,4 +105,54 @@ GraphicSystem::~GraphicSystem() {
 
 void GraphicSystem::add(IGraphicObject *graphicObject) {
     m_objects.push_back(graphicObject);
+}
+
+void GraphicSystem::logOpenGlParameter() {
+    std::stringstream logStream;
+    logStream << "starting GLFW " << glfwGetVersionString();
+    m_logger.info(logStream.str());
+
+    GLenum params[] = {
+        GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS,
+        GL_MAX_CUBE_MAP_TEXTURE_SIZE,
+        GL_MAX_DRAW_BUFFERS,
+        GL_MAX_FRAGMENT_UNIFORM_COMPONENTS,
+        GL_MAX_TEXTURE_IMAGE_UNITS,
+        GL_MAX_TEXTURE_SIZE,
+        GL_MAX_VARYING_FLOATS,
+        GL_MAX_VERTEX_ATTRIBS,
+        GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS,
+        GL_MAX_VERTEX_UNIFORM_COMPONENTS
+    };
+    const char* names[] = {
+        "GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS",
+        "GL_MAX_CUBE_MAP_TEXTURE_SIZE",
+        "GL_MAX_DRAW_BUFFERS",
+        "GL_MAX_FRAGMENT_UNIFORM_COMPONENTS",
+        "GL_MAX_TEXTURE_IMAGE_UNITS",
+        "GL_MAX_TEXTURE_SIZE",
+        "GL_MAX_VARYING_FLOATS",
+        "GL_MAX_VERTEX_ATTRIBS",
+        "GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS",
+        "GL_MAX_VERTEX_UNIFORM_COMPONENTS"
+    };
+
+    logStream.clear();
+    logStream << "GL Context Params: " << std::endl;
+
+    for (auto i = 0; i < 10; i++) {
+        int value = 0;
+        glGetIntegerv(params[i], &value);
+        logStream << names[i] << ": " << value << std::endl;
+    }
+
+    int valuesArray[2];
+    memset(valuesArray, 0, sizeof(valuesArray));
+    glGetIntegerv(GL_MAX_VIEWPORT_DIMS, valuesArray);
+    logStream << "GL_MAX_VIEWPORT_DIMS,x: " << valuesArray[0] << std::endl;
+    logStream << "GL_MAX_VIEWPORT_DIMS,y: " << valuesArray[1] << std::endl;
+    unsigned char stereoValue = 0;
+    glGetBooleanv(GL_STEREO, &stereoValue);
+    logStream << "GL_STEREO: " << stereoValue;
+    m_logger.info(logStream.str());
 }
