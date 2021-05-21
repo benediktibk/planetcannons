@@ -33,17 +33,16 @@ void GameEngine::execute() {
 	m_graphicSystem.add(triangleOne);
 	m_graphicSystem.add(triangleTwo);
 
-	bool flip = false;
-
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
     double minimumFrameLength = 1.0/m_maximumFramesPerSecond;
 	while (!m_graphicSystem.closeRequested()) {
-		flip = !flip;
+        double yPosition = sin(2 * 3.141592564 * 1 * lastTimeInMilliseconds/1000.0)/2 - 0.5;
+        
 		triangleOne->setPoints(
 			std::make_tuple(-1.0f, -1.0f, 0.0f), 
 			std::make_tuple(1.0f, -1.0f, 0.0f), 
-			std::make_tuple(0.0f, flip ? -0.5f : 0.0f, 0.0f));
+			std::make_tuple(0.0f, yPosition, 0.0f));
 		m_graphicSystem.update();
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
