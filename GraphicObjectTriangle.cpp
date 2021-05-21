@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree, const ShaderProgram &shaderProgram) :
-    m_shaderProgram(&shaderProgram) {
+    m_shaderProgram(shaderProgram) {
     for (auto i = 0; i < 9; ++i) {
         m_coordinates[i] = 0;
     }
@@ -42,6 +42,6 @@ void GraphicObjectTriangle::update() const {
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_coordinates), m_coordinates);
     glBindVertexArray(m_vertexArray);
-    m_shaderProgram->use();
+    m_shaderProgram.use();
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }

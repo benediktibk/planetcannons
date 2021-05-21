@@ -17,8 +17,8 @@ GameEngine::GameEngine(const ILogger &logger, GraphicSystem &graphicSystem, unsi
 }
 
 void GameEngine::execute() {
-	VertexShader vertexShader;
-	FragmentShader fragmentShader;
+	VertexShader vertexShader(m_logger);
+	FragmentShader fragmentShader(m_logger);
 	ShaderProgram shaderProgram(vertexShader, fragmentShader);
 	GraphicObjectTriangle *triangleOne = new GraphicObjectTriangle(
 		std::make_tuple(-1.0f, -1.0f, 0.0f), 
@@ -38,7 +38,7 @@ void GameEngine::execute() {
     double minimumFrameLength = 1.0/m_maximumFramesPerSecond;
 	while (!m_graphicSystem.closeRequested()) {
         double yPosition = sin(2 * 3.141592564 * 1 * lastTimeInMilliseconds/1000.0)/2 - 0.5;
-        
+
 		triangleOne->setPoints(
 			std::make_tuple(-1.0f, -1.0f, 0.0f), 
 			std::make_tuple(1.0f, -1.0f, 0.0f), 
