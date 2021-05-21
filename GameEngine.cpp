@@ -31,7 +31,7 @@ void GameEngine::execute() {
         "}";
 	VertexShader vertexShader(m_logger, std::string(vertexShaderCode));
 	FragmentShader fragmentShader(m_logger, std::string(fragmentShaderCode));
-	ShaderProgram shaderProgram(vertexShader, fragmentShader);
+	ShaderProgram shaderProgram(m_logger, vertexShader, fragmentShader);
 	GraphicObjectTriangle *triangleOne = new GraphicObjectTriangle(
 		std::make_tuple(-1.0f, -1.0f, 0.0f), 
 		std::make_tuple(1.0f, -1.0f, 0.0f), 
