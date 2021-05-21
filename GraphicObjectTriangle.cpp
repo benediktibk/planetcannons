@@ -1,9 +1,11 @@
 #include "GraphicObjectTriangle.h"
+#include "ShaderProgram.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree) {
+GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree, const ShaderProgram &shaderProgram) :
+    m_shaderProgram(&shaderProgram) {
     for (auto i = 0; i < 9; ++i) {
         m_coordinates[i] = 0;
     }
@@ -17,32 +19,6 @@ GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, floa
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_coordinates), m_coordinates, GL_STREAM_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-    const char* vertexShaderCode =
-        "#version 400\n"
-        "in vec3 vp;"
-        "void main() {"
-        "  gl_Position = vec4(vp, 1.0);"
-        "}";
-
-    const char* fragmentShaderCode =
-        "#version 400\n"
-        "out vec4 frag_colour;"
-        "void main() {"
-        "  frag_colour = vec4(0.5, 0.0, 0.5, 1.0);"
-        "}";
-
-    auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderCode, NULL);
-    glCompileShader(vertexShader);
-    auto fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderCode, NULL);
-    glCompileShader(fragmentShader);
-
-    m_shaderProgram = glCreateProgram();
-    glAttachShader(m_shaderProgram, fragmentShader);
-    glAttachShader(m_shaderProgram, vertexShader);
-    glLinkProgram(m_shaderProgram);
 }
 
 GraphicObjectTriangle::~GraphicObjectTriangle() {
@@ -66,6 +42,6 @@ void GraphicObjectTriangle::update() const {
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_coordinates), m_coordinates);
     glBindVertexArray(m_vertexArray);
-    glUseProgram(m_shaderProgram);
+    m_shaderProgram->use();
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
