@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/benedikt.schmidt/Development/planetcannons/build",
+            "binaryPath": "/home/benedikt.schmidt/Development/planetcannons/build/planetcannons",
+            "binaryArgs": []
+        }
+    ]
+}

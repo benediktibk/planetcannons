@@ -1,6 +1,6 @@
-COMPILERFLAGS=-Wall -Wextra -Werror -MMD -std=c++20
+COMPILERFLAGS=-Wall -Wextra -Werror -MMD -std=c++20 -g -O0
 COMPILERFLAGSTEST=$(COMPILERFLAGS)
-LINKERFLAGS=
+LINKERFLAGS=-g
 LIBRARIES=-lglfw -lGL -lGLEW
 LIBRARIESTEST=-lcppunit
 COMPILER=g++
@@ -26,7 +26,7 @@ build/guard:
 	mkdir -p build
 	touch build/guard
 
-build/%.o: %.cpp build/guard
+build/%.o: %.cpp build/guard Makefile
 	$(COMPILER) -c $(COMPILERFLAGS) $< -o $@
 
 build/testrunner: $(OBJECTFILESTEST) $(OBJECTFILES) build/testrunner.o build/guard

@@ -37,7 +37,8 @@ GraphicObjectCircle::~GraphicObjectCircle() {
 }
 
 void GraphicObjectCircle::setCenterPosition(const std::tuple<float, float, float> &centerPosition) {
-    std::vector< std::tuple<float, float, float> > vertices(m_verticeCount);
+    std::vector< std::tuple<float, float, float> > vertices;
+    vertices.reserve(m_verticeCount);
 
     m_centerPosition = centerPosition;
 
