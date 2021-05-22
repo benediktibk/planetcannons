@@ -11,13 +11,16 @@ class Shader {
         unsigned int getId() const;
         virtual ~Shader();
         bool isInitialized() const;
+        virtual void initializeUniforms() {};
 
     private:
         Shader(const Shader &rhs);
         void operator=(const Shader &) {}
 
-    private:
+    protected:
         const ILogger &m_logger;
+
+    private:
         unsigned int m_shader;
         bool m_initialized;
 };

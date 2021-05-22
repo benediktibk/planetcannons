@@ -7,7 +7,7 @@ class ILogger;
 
 class ShaderProgram {
     public:
-        ShaderProgram(const ILogger &logger, const VertexShader &vertexShader, const FragmentShader &fragmentShader);
+        ShaderProgram(const ILogger &logger, VertexShader &vertexShader, FragmentShader &fragmentShader);
         ~ShaderProgram();
         void use() const;
 

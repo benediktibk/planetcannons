@@ -102,6 +102,27 @@ void GraphicSystem::update() {
 
     glfwSwapBuffers(m_window);
     glfwPollEvents();
+
+    GLenum openGlError = glGetError();
+
+    if (openGlError != GL_NO_ERROR) {
+        std::stringstream logStream;
+        logStream << "error in OpenGL occured: " << openGlError;
+
+        switch(openGlError) {
+            case GL_INVALID_ENUM: logStream << ", invalid enum"; break;
+            case GL_INVALID_VALUE: logStream << ", invalid value"; break;
+            case GL_INVALID_OPERATION: logStream << ", invalid operation"; break;
+            case GL_STACK_OVERFLOW: logStream << ", stack overflow"; break;
+            case GL_STACK_UNDERFLOW: logStream << ", stack underflow"; break;
+            case GL_OUT_OF_MEMORY: logStream << ", out of memory"; break;
+            case GL_INVALID_FRAMEBUFFER_OPERATION: logStream << ", invalid framebuffer operation"; break;
+            case GL_CONTEXT_LOST: logStream << ", context lost"; break;
+            case GL_TABLE_TOO_LARGE: logStream << ", table too large"; break;
+            default: break;
+        }
+        m_logger.error(logStream.str());
+    }
 }
 
 GraphicSystem::~GraphicSystem() {
