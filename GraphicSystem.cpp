@@ -7,23 +7,40 @@
 #include <sstream>
 #include <cstring>
 
-static const ILogger *graphicSystemLogger;
+GraphicSystem* GraphicSystem::m_graphicSystem = 0;
 
-void glfwErrorCallback(int error, const char* description) {
-    if (graphicSystemLogger == 0) {
+void keyboardCallback(unsigned char key, int, int) {
+    switch(key) {
+        case 'w': break;
+        case 'a': break;
+        case 's': break;
+        case 'd': break;
+        default: break;
+    }
+}
+
+GraphicSystem& GraphicSystem::get(const ILogger &logger) {
+    if (m_graphicSystem == 0) {
+        m_graphicSystem = new GraphicSystem(logger);
+    }
+
+    return *m_graphicSystem;
+}
+
+void GraphicSystem::glfwErrorCallback(int error, const char* description) {
+    if (m_graphicSystem == 0) {
         return;
     }
 
     std::stringstream logStream;
     logStream << "error " << error << " occurred: " << description;
-    graphicSystemLogger->error(logStream.str());
+    m_graphicSystem->m_logger.error(logStream.str());
 }
 
 GraphicSystem::GraphicSystem(const ILogger &logger) :
     m_logger(logger),
     m_initialzed(false) {
-    graphicSystemLogger = &logger;
-    glfwSetErrorCallback(glfwErrorCallback);
+    glfwSetErrorCallback(GraphicSystem::glfwErrorCallback);
     bool success = glfwInit();
 
     if(!success) {

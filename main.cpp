@@ -5,8 +5,7 @@
 
 int main() {
     Logger logger;
-	GraphicSystem graphicSystem(logger);
 	Clock clock;
-	GameEngine gameEngine(logger, graphicSystem, 60, clock);
+	GameEngine gameEngine(logger, GraphicSystem::get(logger), 60, clock);
 	gameEngine.execute();
 }

@@ -9,14 +9,23 @@ class GLFWwindow;
 
 class GraphicSystem : public IGraphicSystem {
     public:
-        GraphicSystem(const ILogger &logger);
+        static GraphicSystem& get(const ILogger &logger);
+
+    public:
         virtual ~GraphicSystem();
         virtual void update();
         virtual bool closeRequested();
         virtual void add(IGraphicObject *graphicObject);
 
     private:
+        static void glfwErrorCallback(int error, const char* description);
+
+    private:
+        GraphicSystem(const ILogger &logger);
         void logOpenGlParameter();
+
+    private:
+        static GraphicSystem *m_graphicSystem;
 
     private:
         const ILogger &m_logger;

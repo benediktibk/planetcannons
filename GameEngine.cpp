@@ -52,7 +52,7 @@ void GameEngine::execute() {
     GraphicObjectCircleFilled *circleFilled = new GraphicObjectCircleFilled(
 		std::make_tuple(0.0f, 0.0f, 0.0f),
         0.2,
-        32,
+        100,
         shaderProgram);
 	m_graphicSystem.add(triangleOne);
 	m_graphicSystem.add(triangleTwo);
