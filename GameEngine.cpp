@@ -36,29 +36,11 @@ void GameEngine::execute() {
 	VertexShader vertexShader(m_logger, std::string(vertexShaderCode));
 	FragmentShader fragmentShader(m_logger, std::string(fragmentShaderCode));
 	ShaderProgram shaderProgram(m_logger, vertexShader, fragmentShader);
-	GraphicObjectTriangle *triangleOne = new GraphicObjectTriangle(
-		std::make_tuple(-1.0f, -1.0f, 0.0f), 
-		std::make_tuple(-0.5f, -1.0f, 0.0f), 
-		std::make_tuple(-0.75f, 0.0f, 0.0f),
-		shaderProgram);
-	GraphicObjectTriangle *triangleTwo = new GraphicObjectTriangle(
-		std::make_tuple(-1.0f, 0.0f, 0.0f), 
-		std::make_tuple(-0.5f, 0.0f, 0.0f), 
-		std::make_tuple(-0.75f, 1.0f, 0.0f),
-		shaderProgram);
-    GraphicObjectCircle *circle = new GraphicObjectCircle(
-		std::make_tuple(0.7f, 0.7f, 0.0f),
-        0.1,
-        32,
-        shaderProgram);
     GraphicObjectCircleFilled *circleFilled = new GraphicObjectCircleFilled(
 		std::make_tuple(0.0f, 0.0f, 0.0f),
-        0.2,
+        0.05,
         100,
         shaderProgram);
-	m_graphicSystem.add(triangleOne);
-	m_graphicSystem.add(triangleTwo);
-	m_graphicSystem.add(circle);
 	m_graphicSystem.add(circleFilled);
 
     m_clock.startMeasurement();
