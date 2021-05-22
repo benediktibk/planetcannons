@@ -64,18 +64,24 @@ void GameEngine::execute() {
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
     double minimumFrameLength = 1.0/m_maximumFramesPerSecond;
 
-    double movementFrequency = 0.5;
     double xPosition = 0.0;
+    double yPosition = 0.0;
 
 	while (!m_graphicSystem.closeRequested()) {
-        double yPosition = sin(2 * 3.141592564 * movementFrequency * lastTimeInMilliseconds/1000.0)/2;
-
         if (m_graphicSystem.keyPressed(GLFW_KEY_LEFT)) {
             xPosition -= 0.01;
         }
 
         if (m_graphicSystem.keyPressed(GLFW_KEY_RIGHT)) {
             xPosition += 0.01;
+        }
+
+        if (m_graphicSystem.keyPressed(GLFW_KEY_DOWN)) {
+            yPosition -= 0.01;
+        }
+
+        if (m_graphicSystem.keyPressed(GLFW_KEY_UP)) {
+            yPosition += 0.01;
         }
 
 		circleFilled->setCenterPosition(std::make_tuple(xPosition, yPosition, 0));
