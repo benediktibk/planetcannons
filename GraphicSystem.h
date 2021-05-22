@@ -16,6 +16,7 @@ class GraphicSystem : public IGraphicSystem {
         virtual void update();
         virtual bool closeRequested();
         virtual void add(IGraphicObject *graphicObject);
+        virtual bool keyPressed(unsigned int keyType);
 
     private:
         static void glfwErrorCallback(int error, const char* description);

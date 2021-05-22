@@ -9,14 +9,8 @@
 
 GraphicSystem* GraphicSystem::m_graphicSystem = 0;
 
-void keyboardCallback(unsigned char key, int, int) {
-    switch(key) {
-        case 'w': break;
-        case 'a': break;
-        case 's': break;
-        case 'd': break;
-        default: break;
-    }
+bool GraphicSystem::keyPressed(unsigned int keyType) {
+    return glfwGetKey(m_window, keyType) == GLFW_PRESS;
 }
 
 GraphicSystem& GraphicSystem::get(const ILogger &logger) {
@@ -83,7 +77,7 @@ bool GraphicSystem::closeRequested() {
         return true;
     }
 
-    if (glfwGetKey(m_window, GLFW_KEY_ESCAPE ) == GLFW_PRESS) {
+    if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         return true;
     }
 
