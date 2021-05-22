@@ -7,9 +7,10 @@ class ILogger;
 
 class Shader {
     public:
-        Shader(const ILogger &logger, const std::string &code, unsigned int shaderType);
+        Shader(const ILogger &logger, const std::string &shaderFileName, unsigned int shaderType);
         unsigned int getId() const;
         virtual ~Shader();
+        bool isInitialized() const;
 
     private:
         Shader(const Shader &rhs);
@@ -18,6 +19,7 @@ class Shader {
     private:
         const ILogger &m_logger;
         unsigned int m_shader;
+        bool m_initialized;
 };
 
 #endif

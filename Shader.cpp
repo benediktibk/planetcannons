@@ -4,12 +4,30 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <sstream>
+#include <fstream>
 
-Shader::Shader(const ILogger &logger, const std::string &code, unsigned int shaderType) :
-    m_logger(logger) {
+Shader::Shader(const ILogger &logger, const std::string &shaderFileName, unsigned int shaderType) :
+    m_logger(logger),
+    m_initialized(false) {
+    std::stringstream logStream;
+    std::ifstream shaderFile(shaderFileName);
+    std::stringstream shaderFileContentStream;
+    std::string line;
+
+    if (!shaderFile) {
+        logStream << "unable to open shader file " << shaderFileName;
+        logger.error(logStream.str());
+        return;
+    }
+
+    shaderFileContentStream << shaderFile.rdbuf();
+    shaderFile.close();
+    auto shaderFileContent = shaderFileContentStream.str();
+
     m_shader = glCreateShader(shaderType);
-    const char * const codePointer = code.data();
-    glShaderSource(m_shader, 1, &codePointer, NULL);
+    const char * const codePointer = shaderFileContent.c_str();
+    GLint shaderLength = shaderFileContent.size();
+    glShaderSource(m_shader, 1, &codePointer, &shaderLength);
     glCompileShader(m_shader);
     
     int params;
@@ -22,10 +40,12 @@ Shader::Shader(const ILogger &logger, const std::string &code, unsigned int shad
         int actualLength = 0;
         char shaderLog[2048];
         glGetShaderInfoLog(m_shader, maximumLength, &actualLength, shaderLog);
-        std::stringstream logStream;
         logStream << "shader info log for GL index " << m_shader << ": " << shaderLog;
         m_logger.info(logStream.str());
+        return;
     }
+
+    m_initialized = true;
 }
 
 Shader::Shader(const Shader &rhs) :
@@ -38,4 +58,8 @@ Shader::~Shader() {
 
 unsigned int Shader::getId() const {
     return m_shader;
+}
+
+bool Shader::isInitialized() const {
+    return m_initialized;
 }

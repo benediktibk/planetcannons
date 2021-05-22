@@ -5,7 +5,7 @@
 
 class FragmentShader : public Shader {
     public:
-        FragmentShader(const ILogger &logger, const std::string &code);
+        FragmentShader(const ILogger &logger, const std::string &shaderFileName);
 };
 
 #endif

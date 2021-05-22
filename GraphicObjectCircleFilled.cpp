@@ -1,8 +1,8 @@
 #include "GraphicObjectCircleFilled.h"
 #include "ShaderProgram.h"
 #include "GraphicObjectTriangle.h"
-#include "VertexShader.h"
-#include "FragmentShader.h"
+#include "TransformationVertexShader.h"
+#include "FixedColorFragmentShader.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -15,21 +15,8 @@ GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, cons
     m_verticeCount(segmentCount) {
     m_triangles.reserve(segmentCount);
 
-    const char* vertexShaderCode =
-        "#version 400\n"
-        "in vec3 vp;"
-        "void main() {"
-        "  gl_Position = vec4(vp, 1.0);"
-        "}";
-    const char* fragmentShaderCode =
-        "#version 400\n"
-        "out vec4 frag_colour;"
-        "void main() {"
-        "  frag_colour = vec4(0.5, 0.0, 0.5, 1.0);"
-        "}";
-
-    m_vertexShader = new VertexShader(logger, vertexShaderCode);
-    m_fragmentShader = new FragmentShader(logger, fragmentShaderCode);
+    m_vertexShader = new TransformationVertexShader(logger);
+    m_fragmentShader = new FixedColorFragmentShader(logger);
     m_shaderProgram = new ShaderProgram(logger, *m_vertexShader, *m_fragmentShader);
 
     for (size_t i = 0; i < segmentCount; ++i) {
