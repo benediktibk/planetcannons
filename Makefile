@@ -11,6 +11,9 @@ SOURCEFILES=$(filter-out $(SOURCEFILESTEST) testrunner.cpp main.cpp, $(SOURCEFIL
 OBJECTFILES=$(addprefix build/,$(patsubst %.cpp,%.o,$(SOURCEFILES)))
 OBJECTFILESTEST=$(addprefix build/,$(patsubst %.cpp,%.o,$(SOURCEFILESTEST)))
 DEPENDENCIES=$(OBJECTFILES:%.o=%.d) $(OBJECTFILESTEST:%.o=%.d) build/main.d build/testrunner.d
+SHADERFILES=$(wildcard *.vert) $(wildcard *.frag) $(wildcard *.tesc) $(wildcard *.tese) $(wildcard *.geom) $(wildcard *.comp)
+SHADERTARGETFILES=$(addprefix build/,$(SHADERFILES))
+SHADERCOMPILER=/usr/bin/glslangValidator
 
 all: build/testrunner build/planetcannons
 
@@ -29,10 +32,34 @@ build/guard:
 build/%.o: %.cpp build/guard Makefile
 	$(COMPILER) -c $(COMPILERFLAGS) $< -o $@
 
+build/%.vert: %.vert build/guard Makefile
+	$(SHADERCOMPILER) $<
+	cp $< $@
+
+build/%.frag: %.frag build/guard Makefile
+	$(SHADERCOMPILER) $<
+	cp $< $@
+	
+build/%.tesc: %.tesc build/guard Makefile
+	$(SHADERCOMPILER) $<
+	cp $< $@
+	
+build/%.tese: %.tese build/guard Makefile
+	$(SHADERCOMPILER) $<
+	cp $< $@
+	
+build/%.geom: %.geom build/guard Makefile
+	$(SHADERCOMPILER) $<
+	cp $< $@
+	
+build/%.comp: %.comp build/guard Makefile
+	$(SHADERCOMPILER) $<
+	cp $< $@
+
 build/testrunner: $(OBJECTFILESTEST) $(OBJECTFILES) build/testrunner.o build/guard
 	$(LINKER) $(LINKERFLAGS) build/testrunner.o $(OBJECTFILESTEST) $(OBJECTFILES) $(LIBRARIES) $(LIBRARIESTEST) -o $@
 
-build/planetcannons: $(OBJECTFILES) build/main.o build/guard
+build/planetcannons: $(OBJECTFILES) $(SHADERTARGETFILES) build/main.o build/guard
 	$(LINKER) $(LINKERFLAGS) build/main.o $(OBJECTFILES) $(LIBRARIES) -o $@
 
 .PHONY: all clean
