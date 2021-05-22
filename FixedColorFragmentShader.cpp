@@ -8,16 +8,14 @@ FixedColorFragmentShader::FixedColorFragmentShader(const ILogger &logger, const 
     m_color(color) { 
 }
 
-void FixedColorFragmentShader::initializeUniforms() {
-    unsigned int inputColorLocation = glGetUniformLocation(getId(), "inputColor");
+void FixedColorFragmentShader::initializeUniforms(unsigned int shaderProgramId) {    
     float values[] = {
         std::get<0>(m_color),
         std::get<1>(m_color),
         std::get<2>(m_color),
         std::get<3>(m_color)
     };
-    glUniform4fv(
-        inputColorLocation,
-        1,
-        values);
+    
+    unsigned int inputColorLocation = glGetUniformLocation(shaderProgramId, "inputColor");    
+    glUniform4fv(inputColorLocation, 1, values);
 }

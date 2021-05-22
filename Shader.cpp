@@ -63,3 +63,6 @@ unsigned int Shader::getId() const {
 bool Shader::isInitialized() const {
     return m_initialized;
 }
+
+void Shader::initializeUniforms(unsigned int) {
+}

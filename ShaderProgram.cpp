@@ -30,8 +30,8 @@ ShaderProgram::ShaderProgram(const ILogger &logger, VertexShader &vertexShader, 
     }
 
     glUseProgram(m_shaderProgram);
-    vertexShader.initializeUniforms();
-    fragmentShader.initializeUniforms();
+    vertexShader.initializeUniforms(m_shaderProgram);
+    fragmentShader.initializeUniforms(m_shaderProgram);
 }
 
 ShaderProgram::~ShaderProgram() {

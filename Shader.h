@@ -11,7 +11,7 @@ class Shader {
         unsigned int getId() const;
         virtual ~Shader();
         bool isInitialized() const;
-        virtual void initializeUniforms() {};
+        virtual void initializeUniforms(unsigned int shaderProgramId);
 
     private:
         Shader(const Shader &rhs);

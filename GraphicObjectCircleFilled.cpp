@@ -16,7 +16,7 @@ GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, cons
     m_triangles.reserve(segmentCount);
 
     m_vertexShader = new TransformationVertexShader(logger);
-    m_fragmentShader = new FixedColorFragmentShader(logger, std::make_tuple<float, float, float, float>(0.5, 0.0, 0.5, 1.0));
+    m_fragmentShader = new FixedColorFragmentShader(logger, std::make_tuple<float, float, float, float>(0, 1, 0.5, 1.0));
     m_shaderProgram = new ShaderProgram(logger, *m_vertexShader, *m_fragmentShader);
 
     for (size_t i = 0; i < segmentCount; ++i) {
