@@ -9,12 +9,12 @@
 GraphicObjectCircle::GraphicObjectCircle(const std::tuple<float, float, float> &centerPosition, double radius, unsigned int segmentCount, const ShaderProgram &shaderProgram) :
     m_radius(radius),
     m_centerPosition(centerPosition),
-    m_verticeCoordinateCount((segmentCount + 1)*3),
+    m_verticeCoordinateCount(segmentCount*3),
     m_verticesCoordinates(0),
     m_vertexBuffer(0),
     m_vertexArray(0),
     m_shaderProgram(shaderProgram),
-    m_verticeCount(segmentCount + 1) {
+    m_verticeCount(segmentCount) {
 
     m_verticesCoordinates = new float[m_verticeCoordinateCount];
     setCenterPosition(centerPosition);
@@ -42,15 +42,13 @@ void GraphicObjectCircle::setCenterPosition(const std::tuple<float, float, float
 
     m_centerPosition = centerPosition;
 
-    for (unsigned int i = 0; i < m_verticeCount - 1; ++i) {
-        double angle = 2 * M_PI * i / (double)(m_verticeCount - 1);
+    for (unsigned int i = 0; i < m_verticeCount; ++i) {
+        double angle = 2 * M_PI * i / (double)m_verticeCount;
         float x = std::get<0>(m_centerPosition) + m_radius * cos(angle);
         float y = std::get<1>(m_centerPosition) + m_radius * sin(angle);
         float z = std::get<2>(m_centerPosition);
         vertices.push_back(std::make_tuple(x, y, z));
     }
-
-    vertices.push_back(vertices.front());
 
     unsigned int m_verticesCoordinatesPosition = 0;
 
