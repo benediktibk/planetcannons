@@ -21,26 +21,11 @@ GameEngine::GameEngine(const ILogger &logger, GraphicSystem &graphicSystem, unsi
 }
 
 void GameEngine::execute() {
-    const char* vertexShaderCode =
-        "#version 400\n"
-        "in vec3 vp;"
-        "void main() {"
-        "  gl_Position = vec4(vp, 1.0);"
-        "}";
-    const char* fragmentShaderCode =
-        "#version 400\n"
-        "out vec4 frag_colour;"
-        "void main() {"
-        "  frag_colour = vec4(0.5, 0.0, 0.5, 1.0);"
-        "}";
-	VertexShader vertexShader(m_logger, std::string(vertexShaderCode));
-	FragmentShader fragmentShader(m_logger, std::string(fragmentShaderCode));
-	ShaderProgram shaderProgram(m_logger, vertexShader, fragmentShader);
     GraphicObjectCircleFilled *circleFilled = new GraphicObjectCircleFilled(
+        m_logger,
 		std::make_tuple(0.0f, 0.0f, 0.0f),
         0.05,
-        100,
-        shaderProgram);
+        100);
 	m_graphicSystem.add(circleFilled);
 
     m_clock.startMeasurement();

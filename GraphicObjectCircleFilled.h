@@ -6,11 +6,14 @@
 #include <vector>
 
 class ShaderProgram;
+class VertexShader;
+class FragmentShader;
 class GraphicObjectTriangle;
+class ILogger;
 
 class GraphicObjectCircleFilled : public IGraphicObject {
     public: 
-        GraphicObjectCircleFilled(const std::tuple<float, float, float> &centerPosition, double radius, unsigned int segmentCount, const ShaderProgram &shaderProgram);
+        GraphicObjectCircleFilled(const ILogger &logger, const std::tuple<float, float, float> &centerPosition, double radius, unsigned int segmentCount);
         virtual ~GraphicObjectCircleFilled();
         virtual void update() const;
         void setCenterPosition(const std::tuple<float, float, float> &centerPosition);
@@ -21,6 +24,9 @@ class GraphicObjectCircleFilled : public IGraphicObject {
         unsigned int m_verticeCoordinateCount;
         unsigned int m_verticeCount;
         std::vector<GraphicObjectTriangle*> m_triangles;
+        VertexShader *m_vertexShader;
+        FragmentShader *m_fragmentShader;
+        ShaderProgram *m_shaderProgram;
 };
 
 #endif
