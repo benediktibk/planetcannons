@@ -8,7 +8,8 @@
 
 Shader::Shader(const ILogger &logger, const std::string &shaderFileName, unsigned int shaderType) :
     m_logger(logger),
-    m_initialized(false) {
+    m_initialized(false),
+    m_uniformsUpdateNecessary(true) {
     std::stringstream logStream;
     std::ifstream shaderFile(shaderFileName);
     std::stringstream shaderFileContentStream;
@@ -64,5 +65,17 @@ bool Shader::isInitialized() const {
     return m_initialized;
 }
 
-void Shader::initializeUniforms(unsigned int) {
+void Shader::updateUniforms(unsigned int shaderProgramId) {
+    if (m_uniformsUpdateNecessary) {
+        updateUniformsInternal(shaderProgramId);
+    }
+
+    m_uniformsUpdateNecessary = false;
+}
+
+void Shader::updateUniformsInternal(unsigned int) {
+}
+
+void Shader::markUniformsUpdateNecessary() {
+    m_uniformsUpdateNecessary = true;
 }

@@ -1,14 +1,12 @@
 #include "FixedColorFragmentShader.h"
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 
 FixedColorFragmentShader::FixedColorFragmentShader(const ILogger &logger, const std::tuple<float, float, float, float> &color) :
     FragmentShader(logger, "fixedColor.frag"),
     m_color(color) { 
 }
 
-void FixedColorFragmentShader::initializeUniforms(unsigned int shaderProgramId) {    
+void FixedColorFragmentShader::updateUniformsInternal(unsigned int shaderProgramId) {    
     float values[] = {
         std::get<0>(m_color),
         std::get<1>(m_color),

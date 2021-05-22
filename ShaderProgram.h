@@ -14,6 +14,8 @@ class ShaderProgram {
     private:
         const ILogger &m_logger;
         unsigned int m_shaderProgram;
+        VertexShader &m_vertexShader;
+        FragmentShader &m_fragmentShader;
 };
 
 #endif

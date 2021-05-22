@@ -8,7 +8,9 @@
 #include <sstream>
 
 ShaderProgram::ShaderProgram(const ILogger &logger, VertexShader &vertexShader, FragmentShader &fragmentShader) :
-    m_logger(logger) {
+    m_logger(logger),
+    m_vertexShader(vertexShader),
+    m_fragmentShader(fragmentShader) {
     m_shaderProgram = glCreateProgram();
     glAttachShader(m_shaderProgram, fragmentShader.getId());
     glAttachShader(m_shaderProgram, vertexShader.getId());
@@ -28,10 +30,6 @@ ShaderProgram::ShaderProgram(const ILogger &logger, VertexShader &vertexShader, 
         logStream << "program info log for GL index " << m_shaderProgram << ": " << programLog;
         m_logger.info(logStream.str());
     }
-
-    glUseProgram(m_shaderProgram);
-    vertexShader.initializeUniforms(m_shaderProgram);
-    fragmentShader.initializeUniforms(m_shaderProgram);
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -40,4 +38,6 @@ ShaderProgram::~ShaderProgram() {
 
 void ShaderProgram::use() const {
     glUseProgram(m_shaderProgram);
+    m_vertexShader.updateUniforms(m_shaderProgram);
+    m_fragmentShader.updateUniforms(m_shaderProgram);
 }
