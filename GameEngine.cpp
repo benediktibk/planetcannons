@@ -7,6 +7,7 @@
 #include "ShaderProgram.h"
 #include "Clock.h"
 #include "GraphicObjectCircle.h"
+#include "GraphicObjectCircleFilled.h"
 #include <unistd.h>
 #include <cmath>
 
@@ -44,6 +45,11 @@ void GameEngine::execute() {
 		std::make_tuple(-0.75f, 1.0f, 0.0f),
 		shaderProgram);
     GraphicObjectCircle *circle = new GraphicObjectCircle(
+		std::make_tuple(0.7f, 0.7f, 0.0f),
+        0.1,
+        32,
+        shaderProgram);
+    GraphicObjectCircleFilled *circleFilled = new GraphicObjectCircleFilled(
 		std::make_tuple(0.0f, 0.0f, 0.0f),
         0.2,
         32,
@@ -51,6 +57,7 @@ void GameEngine::execute() {
 	m_graphicSystem.add(triangleOne);
 	m_graphicSystem.add(triangleTwo);
 	m_graphicSystem.add(circle);
+	m_graphicSystem.add(circleFilled);
 
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
@@ -60,7 +67,7 @@ void GameEngine::execute() {
 	while (!m_graphicSystem.closeRequested()) {
         double yPosition = sin(2 * 3.141592564 * movementFrequency * lastTimeInMilliseconds/1000.0)/2;
 
-		circle->setCenterPosition(std::make_tuple(0, yPosition, 0));
+		circleFilled->setCenterPosition(std::make_tuple(0, yPosition, 0));
 		m_graphicSystem.update();
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
