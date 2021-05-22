@@ -6,6 +6,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <cmath>
 #include <vector>
 
@@ -64,6 +66,12 @@ GraphicObjectCircleFilled::~GraphicObjectCircleFilled() {
 
 void GraphicObjectCircleFilled::setCenterPosition(const std::tuple<float, float, float> &centerPosition) {
     m_centerPosition = centerPosition;
+    glm::mat4 transformation = glm::mat4(1.0f);
+    transformation = glm::translate(transformation, glm::vec3(
+        std::get<0>(centerPosition), 
+        std::get<1>(centerPosition), 
+        std::get<2>(centerPosition)));
+    m_vertexShader->setTransformation(transformation);
 }
 
 void GraphicObjectCircleFilled::update() const {

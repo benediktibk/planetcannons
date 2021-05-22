@@ -6,8 +6,8 @@
 #include <vector>
 
 class ShaderProgram;
-class VertexShader;
-class FragmentShader;
+class TransformationVertexShader;
+class FixedColorFragmentShader;
 class GraphicObjectTriangle;
 class ILogger;
 
@@ -24,8 +24,8 @@ class GraphicObjectCircleFilled : public IGraphicObject {
         unsigned int m_verticeCoordinateCount;
         unsigned int m_verticeCount;
         std::vector<GraphicObjectTriangle*> m_triangles;
-        VertexShader *m_vertexShader;
-        FragmentShader *m_fragmentShader;
+        TransformationVertexShader *m_vertexShader;
+        FixedColorFragmentShader *m_fragmentShader;
         ShaderProgram *m_shaderProgram;
 };
 
