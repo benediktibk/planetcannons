@@ -11,6 +11,7 @@
 #include <GLFW/glfw3.h>
 #include <unistd.h>
 #include <cmath>
+#include <sstream>
 
 GameEngine::GameEngine(const ILogger &logger, GraphicSystem &graphicSystem, unsigned int maximumFramesPerSecond, Clock &clock) :
     m_logger(logger),
@@ -66,6 +67,9 @@ void GameEngine::execute() {
 
     double xPosition = 0.0;
     double yPosition = 0.0;
+    unsigned int frames = 0;
+    uint64_t lastTimeFpsOutputCreatedInMilliseconds = lastTimeInMilliseconds;
+    double correctionFactorSleepTime = 0.95;
 
 	while (!m_graphicSystem.closeRequested()) {
         if (m_graphicSystem.keyPressed(GLFW_KEY_LEFT)) {
@@ -88,8 +92,20 @@ void GameEngine::execute() {
 		m_graphicSystem.update();
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
+        frames++;
+
+        if (currentTimeInMilliseconds - lastTimeFpsOutputCreatedInMilliseconds > 1000) {
+            double framesPerSecond = (double)frames / (currentTimeInMilliseconds - lastTimeFpsOutputCreatedInMilliseconds) * 1000;
+            std::stringstream logStream;
+            logStream << "frames per second: " << framesPerSecond;
+            m_logger.debug(logStream.str());
+            frames = 0;
+            lastTimeFpsOutputCreatedInMilliseconds = currentTimeInMilliseconds;
+        }
+
+        currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
         uint64_t frameLengthInMilliseconds = currentTimeInMilliseconds - lastTimeInMilliseconds;
-        int64_t timeToSleepInMicroseconds = minimumFrameLength * 1e6 - frameLengthInMilliseconds;
+        int64_t timeToSleepInMicroseconds = (minimumFrameLength * 1e6 - frameLengthInMilliseconds) * correctionFactorSleepTime;
         lastTimeInMilliseconds = currentTimeInMilliseconds;
         
         if (timeToSleepInMicroseconds > 0) {
