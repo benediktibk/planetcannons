@@ -153,6 +153,6 @@ void GraphicSystem::logOpenGlParameter() {
     logStream << "GL_MAX_VIEWPORT_DIMS,y: " << valuesArray[1] << std::endl;
     unsigned char stereoValue = 0;
     glGetBooleanv(GL_STEREO, &stereoValue);
-    logStream << "GL_STEREO: " << stereoValue;
+    logStream << "GL_STEREO: " << (unsigned int)stereoValue;
     m_logger.info(logStream.str());
 }

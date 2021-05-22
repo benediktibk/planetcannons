@@ -7,7 +7,24 @@
 GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree, const ShaderProgram &shaderProgram) :
     m_shaderProgram(shaderProgram) {
     setPoints(pointOne, pointTwo, pointThree);
+    initialize();
+}
 
+GraphicObjectTriangle::GraphicObjectTriangle(const ShaderProgram &shaderProgram) :
+    m_shaderProgram(shaderProgram) {
+    for (size_t i = 0; i < 9; ++i) {
+        m_coordinates[i] = 0;
+    }
+
+    initialize();
+}
+
+GraphicObjectTriangle::~GraphicObjectTriangle() {
+    glDeleteBuffers(1, &m_vertexBuffer);
+	glDeleteVertexArrays(1, &m_vertexArray);
+}
+
+void GraphicObjectTriangle::initialize() {
     glGenVertexArrays(1, &m_vertexArray);
     glBindVertexArray(m_vertexArray);
     glEnableVertexAttribArray(0);
@@ -15,11 +32,6 @@ GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, floa
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_coordinates), m_coordinates, GL_STREAM_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-}
-
-GraphicObjectTriangle::~GraphicObjectTriangle() {
-    glDeleteBuffers(1, &m_vertexBuffer);
-	glDeleteVertexArrays(1, &m_vertexArray);
 }
 
 void GraphicObjectTriangle::setPoints(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree) {
@@ -32,6 +44,24 @@ void GraphicObjectTriangle::setPoints(const std::tuple<float, float, float> &poi
     m_coordinates[6] = std::get<0>(pointThree);
     m_coordinates[7] = std::get<1>(pointThree);
     m_coordinates[8] = std::get<2>(pointThree);
+}
+
+void GraphicObjectTriangle::setPointOne(const std::tuple<float, float, float> &point) {
+    m_coordinates[0] = std::get<0>(point);
+    m_coordinates[1] = std::get<1>(point);
+    m_coordinates[2] = std::get<2>(point);
+}
+
+void GraphicObjectTriangle::setPointTwo(const std::tuple<float, float, float> &point) {
+    m_coordinates[3] = std::get<0>(point);
+    m_coordinates[4] = std::get<1>(point);
+    m_coordinates[5] = std::get<2>(point);
+}
+
+void GraphicObjectTriangle::setPointThree(const std::tuple<float, float, float> &point) {
+    m_coordinates[6] = std::get<0>(point);
+    m_coordinates[7] = std::get<1>(point);
+    m_coordinates[8] = std::get<2>(point);
 }
 
 void GraphicObjectTriangle::update() const {
