@@ -2,17 +2,17 @@
 #define PLANETCANNONS_GAMEENGINE_H
 
 class ILogger;
-class GraphicSystem;
+class IGraphicEngine;
 class Clock;
 
 class GameEngine {
     public: 
-        GameEngine(const ILogger &logger, GraphicSystem &graphicSystem, unsigned int maximumFramesPerSecond, Clock &clock);
+        GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, unsigned int maximumFramesPerSecond, Clock &clock);
         void execute();
 
     private:
         const ILogger &m_logger;
-        GraphicSystem &m_graphicSystem;
+        IGraphicEngine &m_graphicEngine;
         const unsigned int m_maximumFramesPerSecond;
         Clock &m_clock;
 };

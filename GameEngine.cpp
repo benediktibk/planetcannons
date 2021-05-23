@@ -1,5 +1,5 @@
 #include "GameEngine.h"
-#include "GraphicSystem.h"
+#include "IGraphicEngine.h"
 #include "Logger.h"
 #include "GraphicObjectTriangle.h"
 #include "VertexShader.h"
@@ -13,9 +13,9 @@
 #include <cmath>
 #include <sstream>
 
-GameEngine::GameEngine(const ILogger &logger, GraphicSystem &graphicSystem, unsigned int maximumFramesPerSecond, Clock &clock) :
+GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, unsigned int maximumFramesPerSecond, Clock &clock) :
     m_logger(logger),
-    m_graphicSystem(graphicSystem),
+    m_graphicEngine(graphicEngine),
     m_maximumFramesPerSecond(maximumFramesPerSecond),
     m_clock(clock) {    
 }
@@ -26,7 +26,7 @@ void GameEngine::execute() {
 		std::make_tuple(0.0f, 0.0f, 0.0f),
         0.05,
         100);
-	m_graphicSystem.add(circleFilled);
+	m_graphicEngine.add(circleFilled);
 
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
@@ -38,25 +38,25 @@ void GameEngine::execute() {
     uint64_t lastTimeFpsOutputCreatedInMilliseconds = lastTimeInMilliseconds;
     double correctionFactorSleepTime = 0.95;
 
-	while (!m_graphicSystem.closeRequested()) {
-        if (m_graphicSystem.keyPressed(GLFW_KEY_LEFT)) {
+	while (!m_graphicEngine.closeRequested()) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_LEFT)) {
             xPosition -= 0.01;
         }
 
-        if (m_graphicSystem.keyPressed(GLFW_KEY_RIGHT)) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_RIGHT)) {
             xPosition += 0.01;
         }
 
-        if (m_graphicSystem.keyPressed(GLFW_KEY_DOWN)) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_DOWN)) {
             yPosition -= 0.01;
         }
 
-        if (m_graphicSystem.keyPressed(GLFW_KEY_UP)) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_UP)) {
             yPosition += 0.01;
         }
 
 		circleFilled->setCenterPosition(std::make_tuple(xPosition, yPosition, 0));
-		m_graphicSystem.update();
+		m_graphicEngine.update();
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
         frames++;

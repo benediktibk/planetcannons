@@ -1,4 +1,4 @@
-#include "GraphicSystem.h"
+#include "GraphicEngine.h"
 #include "ILogger.h"
 #include "IGraphicObject.h"
 #include <GL/glew.h>
@@ -7,21 +7,21 @@
 #include <sstream>
 #include <cstring>
 
-GraphicSystem* GraphicSystem::m_graphicSystem = 0;
+GraphicEngine* GraphicEngine::m_graphicSystem = 0;
 
-bool GraphicSystem::keyPressed(unsigned int keyType) {
+bool GraphicEngine::keyPressed(unsigned int keyType) {
     return glfwGetKey(m_window, keyType) == GLFW_PRESS;
 }
 
-GraphicSystem& GraphicSystem::get(const ILogger &logger) {
+IGraphicEngine& GraphicEngine::get(const ILogger &logger) {
     if (m_graphicSystem == 0) {
-        m_graphicSystem = new GraphicSystem(logger);
+        m_graphicSystem = new GraphicEngine(logger);
     }
 
     return *m_graphicSystem;
 }
 
-void GraphicSystem::glfwErrorCallback(int error, const char* description) {
+void GraphicEngine::glfwErrorCallback(int error, const char* description) {
     if (m_graphicSystem == 0) {
         return;
     }
@@ -31,10 +31,10 @@ void GraphicSystem::glfwErrorCallback(int error, const char* description) {
     m_graphicSystem->m_logger.error(logStream.str());
 }
 
-GraphicSystem::GraphicSystem(const ILogger &logger) :
+GraphicEngine::GraphicEngine(const ILogger &logger) :
     m_logger(logger),
     m_initialzed(false) {
-    glfwSetErrorCallback(GraphicSystem::glfwErrorCallback);
+    glfwSetErrorCallback(GraphicEngine::glfwErrorCallback);
     bool success = glfwInit();
 
     if(!success) {
@@ -71,7 +71,7 @@ GraphicSystem::GraphicSystem(const ILogger &logger) :
     m_initialzed = true;
 }
 
-bool GraphicSystem::closeRequested() {
+bool GraphicEngine::closeRequested() {
     if (!m_initialzed) {
         m_logger.error("initialization failed");
         return true;
@@ -88,7 +88,7 @@ bool GraphicSystem::closeRequested() {
     return false;
 }
 
-void GraphicSystem::update() {
+void GraphicEngine::update() {
     if (!m_initialzed) {
         m_logger.error("initialization failed");
         return;
@@ -125,7 +125,7 @@ void GraphicSystem::update() {
     }
 }
 
-GraphicSystem::~GraphicSystem() {
+GraphicEngine::~GraphicEngine() {
     for (auto object = m_objects.begin(); object != m_objects.end(); ++object) {
         delete *object;
     }
@@ -135,11 +135,11 @@ GraphicSystem::~GraphicSystem() {
 	glfwTerminate();
 }
 
-void GraphicSystem::add(IGraphicObject *graphicObject) {
+void GraphicEngine::add(IGraphicObject *graphicObject) {
     m_objects.push_back(graphicObject);
 }
 
-void GraphicSystem::logOpenGlParameter() {
+void GraphicEngine::logOpenGlParameter() {
     std::stringstream logStream;
     logStream << "starting GLFW " << glfwGetVersionString();
     m_logger.info(logStream.str());

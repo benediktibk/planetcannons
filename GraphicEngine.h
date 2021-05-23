@@ -1,18 +1,18 @@
-#ifndef PLANETCANNONS_GRAPHICSYSTEM_H
-#define PLANETCANNONS_GRAPHICSYSTEM_H
+#ifndef PLANETCANNONS_GRAPHICENGINE_H
+#define PLANETCANNONS_GRAPHICENGINE_H
 
-#include "IGraphicSystem.h"
+#include "IGraphicEngine.h"
 #include <vector>
 
 class ILogger;
 class GLFWwindow;
 
-class GraphicSystem : public IGraphicSystem {
+class GraphicEngine : public IGraphicEngine {
     public:
-        static GraphicSystem& get(const ILogger &logger);
+        static IGraphicEngine& get(const ILogger &logger);
 
     public:
-        virtual ~GraphicSystem();
+        virtual ~GraphicEngine();
         virtual void update();
         virtual bool closeRequested();
         virtual void add(IGraphicObject *graphicObject);
@@ -22,11 +22,11 @@ class GraphicSystem : public IGraphicSystem {
         static void glfwErrorCallback(int error, const char* description);
 
     private:
-        GraphicSystem(const ILogger &logger);
+        GraphicEngine(const ILogger &logger);
         void logOpenGlParameter();
 
     private:
-        static GraphicSystem *m_graphicSystem;
+        static GraphicEngine *m_graphicSystem;
 
     private:
         const ILogger &m_logger;
