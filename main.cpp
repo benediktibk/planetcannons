@@ -6,9 +6,9 @@
 #include "GameObjectBall.h"
 
 int main() {
-	double ballWeight = 1e2;
-	double timeFactorForPhysicEngine = 1e3;
-	double maximumTimeStep = timeFactorForPhysicEngine*1e-3;
+	const double ballWeight = 1e2;
+	const double timeFactorForPhysicEngine = 1e3;
+	const double maximumTimeStep = timeFactorForPhysicEngine*1e-3;
 
     Logger logger;
 	Clock clock;
@@ -17,17 +17,24 @@ int main() {
 	GameObjectBall ballOne(
 		logger,
 		std::make_tuple<double, double, double>(-0.25, 0, 0),
-		std::make_tuple<double, double, double>(0, 0, 0),
+		std::make_tuple<double, double, double>(1e-6, -9e-5, 0),
 		0.1,
 		ballWeight);
 	GameObjectBall ballTwo(
 		logger,
 		std::make_tuple<double, double, double>(0.25, 0, 0),
-		std::make_tuple<double, double, double>(0, 0, 0),
+		std::make_tuple<double, double, double>(0, 1e-4, 0),
+		0.1,
+		ballWeight);
+	GameObjectBall ballThree(
+		logger,
+		std::make_tuple<double, double, double>(0, -0.7, 0),
+		std::make_tuple<double, double, double>(-1e-4, 0, 0),
 		0.1,
 		ballWeight);
 
 	gameEngine.add(ballOne);
 	gameEngine.add(ballTwo);
+	gameEngine.add(ballThree);
 	gameEngine.execute();
 }
