@@ -1,6 +1,8 @@
 #include "PhysicEngine.h"
 #include "IPhysicObject.h"
 #include "LinearAlgebra.h"
+#include "ILogger.h"
+#include <sstream>
 
 PhysicEngine::PhysicEngine(const ILogger &logger, double maximumTimestep) :
     m_logger(logger),

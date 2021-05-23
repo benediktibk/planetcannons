@@ -11,7 +11,7 @@ class IGameObject;
 
 class GameEngine {
     public: 
-        GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPhysicEngine &physicEngine, unsigned int maximumFramesPerSecond, Clock &clock);
+        GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPhysicEngine &physicEngine, unsigned int maximumFramesPerSecond, Clock &clock, double timeFactorForPhysicEngine);
         ~GameEngine();
         void execute();
         void add(IGameObject &object);
@@ -23,6 +23,7 @@ class GameEngine {
         const unsigned int m_maximumFramesPerSecond;
         Clock &m_clock;
         std::vector<IGameObject*> m_objects;
+        double m_timeFactorForPhysicEngine;
 };
 
 #endif

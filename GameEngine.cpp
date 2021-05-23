@@ -15,12 +15,13 @@
 #include <cmath>
 #include <sstream>
 
-GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPhysicEngine &physicEngine, unsigned int maximumFramesPerSecond, Clock &clock) :
+GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPhysicEngine &physicEngine, unsigned int maximumFramesPerSecond, Clock &clock, double timeFactorForPhysicEngine) :
     m_logger(logger),
     m_graphicEngine(graphicEngine),
     m_physicEngine(physicEngine),
     m_maximumFramesPerSecond(maximumFramesPerSecond),
-    m_clock(clock) {    
+    m_clock(clock),
+    m_timeFactorForPhysicEngine(timeFactorForPhysicEngine) {    
 }
 
 GameEngine::~GameEngine() {
@@ -69,7 +70,7 @@ void GameEngine::execute() {
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
         double timeSpanForPhysicSimulation = (currentTimeInMilliseconds - lastTimePhysicUpdateInMilliseconds) / 1000.0;
-        m_physicEngine.execute(timeSpanForPhysicSimulation);
+        m_physicEngine.execute(timeSpanForPhysicSimulation*m_timeFactorForPhysicEngine);
         lastTimePhysicUpdateInMilliseconds = currentTimeInMilliseconds;
 
 		m_graphicEngine.update();
