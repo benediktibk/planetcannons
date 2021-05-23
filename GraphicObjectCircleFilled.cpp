@@ -43,7 +43,7 @@ GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, cons
         }
 
         m_triangles[previousIndex]->setPointTwo(vertex);
-        m_triangles[i]->setPointThree(m_centerPosition);
+        m_triangles[i]->setPointThree(std::make_tuple<double, double, double>(0, 0, 0));
     }
 
     setCenterPosition(centerPosition);
