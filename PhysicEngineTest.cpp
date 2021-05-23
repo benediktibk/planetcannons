@@ -4,7 +4,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(PhysicEngineTest);
 
 void PhysicEngineTest::setUp() {
     m_logger = new LoggerMock();
-    m_engine = new PhysicEngine(*m_logger);
+    m_engine = new PhysicEngine(*m_logger, 1e-3);
     m_person = new PhysicObjectBall(*m_logger, 60, 1, std::make_tuple<double, double, double>(6370100, 0, 0), std::make_tuple<double, double, double>(0, 0, 0));
     m_earth = new PhysicObjectBallStatic(*m_logger, 5.972e24, 6370000, std::make_tuple<double, double, double>(0, 0, 0));
     m_engine->add(*m_person);

@@ -1,4 +1,5 @@
 #include "LinearAlgebra.h"
+#include <cmath>
 
 using namespace std;
 
@@ -21,4 +22,8 @@ tuple<double, double, double> LinearAlgebra::multiply(double a, const tuple<doub
         a*get<0>(b),
         a*get<1>(b),
         a*get<2>(b));
+}
+
+double LinearAlgebra::norm(const tuple<double, double, double> &a) {
+    return sqrt(get<0>(a)*get<0>(a) + get<1>(a)*get<1>(a) + get<2>(a)*get<2>(a));
 }
