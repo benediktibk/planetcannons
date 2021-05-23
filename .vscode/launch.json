@@ -5,10 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug",
+            "name": "Debug planetcannons",
             "type": "gdb",
             "request": "launch",
             "target": "./build/planetcannons",
+            "cwd": "${workspaceRoot}",
+            "valuesFormatting": "parseText"
+        },
+        {
+            "name": "Debug tests",
+            "type": "gdb",
+            "request": "launch",
+            "target": "./build/testrunner",
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText"
         }

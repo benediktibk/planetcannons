@@ -6,10 +6,6 @@ PhysicEngine::PhysicEngine(const ILogger &logger) :
 }
 
 PhysicEngine::~PhysicEngine() {
-    for (auto object = m_objects.begin(); object != m_objects.end(); ++object) {
-        delete *object;
-    }
-
     m_objects.clear();
 }
 
