@@ -36,3 +36,30 @@ void PhysicObjectBallTest::applyForce_notMovingAndNoForce_notMoved() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(10, std::get<1>(position), 1e-6);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3, std::get<2>(position), 1e-6);
 }
+
+void PhysicObjectBallTest::applyForce_movingAndNoForce_movedDueToInitialVelocity() {
+    m_ballMoving->applyForce(0, 0.5);
+
+    auto position = m_ballMoving->getPosition();
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(4.5, std::get<0>(position), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(11, std::get<1>(position), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3.05, std::get<2>(position), 1e-6);
+}
+
+void PhysicObjectBallTest::applyForce_notMovingAndForceButNoTime_notMoved() {
+    m_ballNotMoving->applyForce(20, 0);
+
+    auto position = m_ballNotMoving->getPosition();
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(5, std::get<0>(position), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(10, std::get<1>(position), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3, std::get<2>(position), 1e-6);
+}
+
+void PhysicObjectBallTest::applyForce_movingAndForceButNoTime_notMoved() {
+    m_ballMoving->applyForce(20, 0);
+
+    auto position = m_ballMoving->getPosition();
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(5, std::get<0>(position), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(10, std::get<1>(position), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3, std::get<2>(position), 1e-6);
+}
