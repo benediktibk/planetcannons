@@ -3,6 +3,7 @@
 
 class IPhysicObject {
     public:
+        IPhysicObject() {}
         virtual ~IPhysicObject() {}
 
     private:
