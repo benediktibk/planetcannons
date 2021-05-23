@@ -12,8 +12,9 @@ class PhysicObjectBall : public IPhysicObject {
         
         virtual std::tuple<double, double, double> getCenterOfGravity() const;
         virtual std::tuple<double, double, double> getPosition() const;
+        virtual std::tuple<double, double, double> getVelocity() const;
         virtual double getMass() const;
-        virtual void applyForce(double force, double time);
+        virtual void applyForce(const std::tuple<double, double, double> &force, double time);
 
     private:
         const ILogger &m_logger;

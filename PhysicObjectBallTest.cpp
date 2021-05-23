@@ -29,7 +29,7 @@ void PhysicObjectBallTest::tearDown() {
 }
 
 void PhysicObjectBallTest::applyForce_notMovingAndNoForce_notMoved() {
-    m_ballNotMoving->applyForce(0, 0.5);
+    m_ballNotMoving->applyForce(std::make_tuple<double, double, double>(0, 0, 0), 0.5);
 
     auto position = m_ballNotMoving->getPosition();
     CPPUNIT_ASSERT_DOUBLES_EQUAL(5, std::get<0>(position), 1e-6);
@@ -38,7 +38,7 @@ void PhysicObjectBallTest::applyForce_notMovingAndNoForce_notMoved() {
 }
 
 void PhysicObjectBallTest::applyForce_movingAndNoForce_movedDueToInitialVelocity() {
-    m_ballMoving->applyForce(0, 0.5);
+    m_ballMoving->applyForce(std::make_tuple<double, double, double>(0, 0, 0), 0.5);
 
     auto position = m_ballMoving->getPosition();
     CPPUNIT_ASSERT_DOUBLES_EQUAL(4.5, std::get<0>(position), 1e-6);
@@ -47,7 +47,7 @@ void PhysicObjectBallTest::applyForce_movingAndNoForce_movedDueToInitialVelocity
 }
 
 void PhysicObjectBallTest::applyForce_notMovingAndForceButNoTime_notMoved() {
-    m_ballNotMoving->applyForce(20, 0);
+    m_ballNotMoving->applyForce(std::make_tuple<double, double, double>(0, 20, 0), 0);
 
     auto position = m_ballNotMoving->getPosition();
     CPPUNIT_ASSERT_DOUBLES_EQUAL(5, std::get<0>(position), 1e-6);
@@ -56,7 +56,7 @@ void PhysicObjectBallTest::applyForce_notMovingAndForceButNoTime_notMoved() {
 }
 
 void PhysicObjectBallTest::applyForce_movingAndForceButNoTime_notMoved() {
-    m_ballMoving->applyForce(20, 0);
+    m_ballMoving->applyForce(std::make_tuple<double, double, double>(0, 20, 0), 0);
 
     auto position = m_ballMoving->getPosition();
     CPPUNIT_ASSERT_DOUBLES_EQUAL(5, std::get<0>(position), 1e-6);

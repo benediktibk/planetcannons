@@ -10,7 +10,7 @@ class IPhysicObject {
 
         virtual std::tuple<double, double, double> getCenterOfGravity() const = 0;
         virtual double getMass() const = 0;
-        virtual void applyForce(double force, double time) = 0;
+        virtual void applyForce(const std::tuple<double, double, double> &force, double time) = 0;
 
     private:
         IPhysicObject(const IPhysicObject &) {}
