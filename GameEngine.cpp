@@ -73,6 +73,10 @@ void GameEngine::execute() {
         m_physicEngine.execute(timeSpanForPhysicSimulation*m_timeFactorForPhysicEngine);
         lastTimePhysicUpdateInMilliseconds = currentTimeInMilliseconds;
 
+        for (auto object = m_objects.begin(); object != m_objects.end(); ++object) {
+            (*object)->updateGraphics();
+        }
+
 		m_graphicEngine.update();
 
         currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();

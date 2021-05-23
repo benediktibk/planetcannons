@@ -7,7 +7,7 @@
 
 int main() {
 	double ballWeight = 1e2;
-	double timeFactorForPhysicEngine = 1e12;
+	double timeFactorForPhysicEngine = 1e3;
 	double maximumTimeStep = timeFactorForPhysicEngine*1e-3;
 
     Logger logger;
