@@ -1,8 +1,6 @@
 #ifndef PLANETCANNONS_GRAPHICOBJECT_H
 #define PLANETCANNONS_GRAPHICOBJECT_H
 
-class IGraphicSystem;
-
 class IGraphicObject {
     public:        
         IGraphicObject() {}

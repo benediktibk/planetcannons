@@ -12,6 +12,7 @@ class PhysicEngine : public IPhysicEngine {
         virtual ~PhysicEngine();
         virtual void execute(double timeSpan);
         virtual void add(IPhysicObject &physicObject);
+        virtual void remove(IPhysicObject &physicObject);
 
     private:
         const ILogger &m_logger;

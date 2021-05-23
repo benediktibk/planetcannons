@@ -134,6 +134,10 @@ void GraphicEngine::add(IGraphicObject &graphicObject) {
     m_objects.push_back(&graphicObject);
 }
 
+void GraphicEngine::remove(IGraphicObject &graphicObject) {
+    std::remove(m_objects.begin(), m_objects.end(), &graphicObject);
+}
+
 void GraphicEngine::logOpenGlParameter() {
     std::stringstream logStream;
     logStream << "starting GLFW " << glfwGetVersionString();

@@ -16,6 +16,7 @@ class GraphicEngine : public IGraphicEngine {
         virtual void update();
         virtual bool closeRequested();
         virtual void add(IGraphicObject &graphicObject);
+        virtual void remove(IGraphicObject &graphicObject);
         virtual bool keyPressed(unsigned int keyType);
 
     private:

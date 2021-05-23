@@ -51,3 +51,7 @@ void PhysicEngine::execute(double timeSpan) {
 void PhysicEngine::add(IPhysicObject &physicObject) {
     m_objects.push_back(&physicObject);
 }
+
+void PhysicEngine::remove(IPhysicObject &physicObject) {
+    std::remove(m_objects.begin(), m_objects.end(), &physicObject);
+}
