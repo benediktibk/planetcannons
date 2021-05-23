@@ -9,6 +9,7 @@
 #include "Clock.h"
 #include "GraphicObjectCircle.h"
 #include "GraphicObjectCircleFilled.h"
+#include "IGameObject.h"
 #include <GLFW/glfw3.h>
 #include <unistd.h>
 #include <cmath>
@@ -22,14 +23,22 @@ GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPh
     m_clock(clock) {    
 }
 
-void GameEngine::execute() {
-    GraphicObjectCircleFilled circleFilled(
-        m_logger,
-		std::make_tuple(0.0f, 0.0f, 0.0f),
-        0.05,
-        100);
-	m_graphicEngine.add(circleFilled);
+GameEngine::~GameEngine() {
+    for (auto object = m_objects.begin(); object != m_objects.end(); ++object) {
+        (*object)->removeFromGraphicEngine(m_graphicEngine);
+        (*object)->removeFromPhysicEngine(m_physicEngine);
+    }
 
+    m_objects.clear();
+}
+
+void GameEngine::add(IGameObject &object) {
+    m_objects.push_back(&object);
+    object.addToGraphicEngine(m_graphicEngine);
+    object.addToPhysicEngine(m_physicEngine);
+}
+
+void GameEngine::execute() {
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
     double minimumFrameLength = 1.0/m_maximumFramesPerSecond;
@@ -38,6 +47,7 @@ void GameEngine::execute() {
     double yPosition = 0.0;
     unsigned int frames = 0;
     uint64_t lastTimeFpsOutputCreatedInMilliseconds = lastTimeInMilliseconds;
+    uint64_t lastTimePhysicUpdateInMilliseconds = lastTimeInMilliseconds;
     double correctionFactorSleepTime = 0.95;
 
 	while (!m_graphicEngine.closeRequested()) {
@@ -57,10 +67,14 @@ void GameEngine::execute() {
             yPosition += 0.01;
         }
 
-		circleFilled.setCenterPosition(std::make_tuple(xPosition, yPosition, 0));
+        uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
+        double timeSpanForPhysicSimulation = (currentTimeInMilliseconds - lastTimePhysicUpdateInMilliseconds) / 1000.0;
+        m_physicEngine.execute(timeSpanForPhysicSimulation);
+        lastTimePhysicUpdateInMilliseconds = currentTimeInMilliseconds;
+
 		m_graphicEngine.update();
 
-        uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
+        currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
         frames++;
 
         if (currentTimeInMilliseconds - lastTimeFpsOutputCreatedInMilliseconds > 1000) {

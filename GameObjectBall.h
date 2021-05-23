@@ -10,7 +10,12 @@ class PhysicObjectBall;
 
 class GameObjectBall : public IGameObject {
     public: 
-        GameObjectBall(const ILogger &logger, const std::tuple<float, float, float> &centerPosition, const std::tuple<float, float, float> &velocity, double radius, double mass);
+        GameObjectBall(
+            const ILogger &logger, 
+            const std::tuple<float, float, float> &centerPosition, 
+            const std::tuple<float, float, float> &velocity, 
+            double radius, 
+            double mass);
         virtual ~GameObjectBall();
         virtual void updateGraphics();
         virtual void addToGraphicEngine(IGraphicEngine &graphicEngine) const;
