@@ -126,17 +126,12 @@ void GraphicEngine::update() {
 }
 
 GraphicEngine::~GraphicEngine() {
-    for (auto object = m_objects.begin(); object != m_objects.end(); ++object) {
-        delete *object;
-    }
-
     m_objects.clear();
-
 	glfwTerminate();
 }
 
-void GraphicEngine::add(IGraphicObject *graphicObject) {
-    m_objects.push_back(graphicObject);
+void GraphicEngine::add(IGraphicObject &graphicObject) {
+    m_objects.push_back(&graphicObject);
 }
 
 void GraphicEngine::logOpenGlParameter() {

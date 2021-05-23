@@ -15,7 +15,7 @@ class GraphicEngine : public IGraphicEngine {
         virtual ~GraphicEngine();
         virtual void update();
         virtual bool closeRequested();
-        virtual void add(IGraphicObject *graphicObject);
+        virtual void add(IGraphicObject &graphicObject);
         virtual bool keyPressed(unsigned int keyType);
 
     private:

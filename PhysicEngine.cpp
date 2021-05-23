@@ -17,6 +17,6 @@ void PhysicEngine::execute(double) {
 
 }
 
-void PhysicEngine::add(IPhysicObject *physicObject) {
-    m_objects.push_back(physicObject);
+void PhysicEngine::add(IPhysicObject &physicObject) {
+    m_objects.push_back(&physicObject);
 }

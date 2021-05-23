@@ -23,7 +23,7 @@ GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPh
 }
 
 void GameEngine::execute() {
-    GraphicObjectCircleFilled *circleFilled = new GraphicObjectCircleFilled(
+    GraphicObjectCircleFilled circleFilled(
         m_logger,
 		std::make_tuple(0.0f, 0.0f, 0.0f),
         0.05,
@@ -57,7 +57,7 @@ void GameEngine::execute() {
             yPosition += 0.01;
         }
 
-		circleFilled->setCenterPosition(std::make_tuple(xPosition, yPosition, 0));
+		circleFilled.setCenterPosition(std::make_tuple(xPosition, yPosition, 0));
 		m_graphicEngine.update();
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
