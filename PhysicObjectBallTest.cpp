@@ -46,6 +46,24 @@ void PhysicObjectBallTest::applyForce_movingAndNoForce_movedDueToInitialVelocity
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3.05, std::get<2>(position), 1e-6);
 }
 
+void PhysicObjectBallTest::applyForce_notMovingAndNoForce_velocityNotChanged() {
+    m_ballNotMoving->applyForce(std::make_tuple<double, double, double>(0, 0, 0), 0.5);
+
+    auto velocity = m_ballNotMoving->getVelocity();
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<0>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<1>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<2>(velocity), 1e-6);
+}
+
+void PhysicObjectBallTest::applyForce_movingAndNoForce_velocityNotChanged() {
+    m_ballMoving->applyForce(std::make_tuple<double, double, double>(0, 0, 0), 0.5);
+
+    auto velocity = m_ballMoving->getVelocity();
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(-1, std::get<0>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(2, std::get<1>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0.1, std::get<2>(velocity), 1e-6);
+}
+
 void PhysicObjectBallTest::applyForce_notMovingAndForceButNoTime_notMoved() {
     m_ballNotMoving->applyForce(std::make_tuple<double, double, double>(0, 20, 0), 0);
 
@@ -62,4 +80,22 @@ void PhysicObjectBallTest::applyForce_movingAndForceButNoTime_notMoved() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(5, std::get<0>(position), 1e-6);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(10, std::get<1>(position), 1e-6);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3, std::get<2>(position), 1e-6);
+}
+
+void PhysicObjectBallTest::applyForce_notMovingAndForceButNoTime_velocityNotChanged() {
+    m_ballNotMoving->applyForce(std::make_tuple<double, double, double>(0, 20, 0), 0);
+
+    auto velocity = m_ballNotMoving->getVelocity();
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<0>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<1>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<2>(velocity), 1e-6);
+}
+
+void PhysicObjectBallTest::applyForce_movingAndForceButNoTime_velocityNotChanged() {
+    m_ballMoving->applyForce(std::make_tuple<double, double, double>(0, 20, 0), 0);
+
+    auto velocity = m_ballMoving->getVelocity();
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(-1, std::get<0>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(2, std::get<1>(velocity), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(0.1, std::get<2>(velocity), 1e-6);
 }
