@@ -13,7 +13,7 @@ PhysicEngine::~PhysicEngine() {
     m_objects.clear();
 }
 
-void PhysicEngine::execute(double, double) {
+void PhysicEngine::execute(double) {
 
 }
 

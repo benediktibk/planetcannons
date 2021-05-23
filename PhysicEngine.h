@@ -10,7 +10,7 @@ class PhysicEngine : public IPhysicEngine {
     public:
         PhysicEngine(const ILogger &logger);
         virtual ~PhysicEngine();
-        virtual void execute(double startTime, double endTime);
+        virtual void execute(double timeSpan);
         virtual void add(IPhysicObject *physicObject);
 
     private:
