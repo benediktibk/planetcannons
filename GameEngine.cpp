@@ -1,5 +1,6 @@
 #include "GameEngine.h"
 #include "IGraphicEngine.h"
+#include "IPhysicEngine.h"
 #include "Logger.h"
 #include "GraphicObjectTriangle.h"
 #include "VertexShader.h"
@@ -13,9 +14,10 @@
 #include <cmath>
 #include <sstream>
 
-GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, unsigned int maximumFramesPerSecond, Clock &clock) :
+GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPhysicEngine &physicEngine, unsigned int maximumFramesPerSecond, Clock &clock) :
     m_logger(logger),
     m_graphicEngine(graphicEngine),
+    m_physicEngine(physicEngine),
     m_maximumFramesPerSecond(maximumFramesPerSecond),
     m_clock(clock) {    
 }
