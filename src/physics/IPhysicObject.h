@@ -1,17 +1,17 @@
 #ifndef PLANETCANNONS_IPHYSICOBJECT_H
 #define PLANETCANNONS_IPHYSICOBJECT_H
 
-#include <tuple>
+#include "math/LinearAlgebraVector.h"
 
 class IPhysicObject {
     public:
         IPhysicObject() {}
         virtual ~IPhysicObject() {}
 
-        virtual std::tuple<double, double, double> getCenterOfGravity() const = 0;
-        virtual std::tuple<double, double, double> getVelocity() const = 0;
+        virtual LinearAlgebraVector getCenterOfGravity() const = 0;
+        virtual LinearAlgebraVector getVelocity() const = 0;
         virtual double getMass() const = 0;
-        virtual void applyForce(const std::tuple<double, double, double> &force, double time) = 0;
+        virtual void applyForce(const LinearAlgebraVector &force, double time) = 0;
 
     private:
         IPhysicObject(const IPhysicObject &) {}

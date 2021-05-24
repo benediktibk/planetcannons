@@ -11,7 +11,7 @@
 #include <cmath>
 #include <vector>
 
-GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, const std::tuple<float, float, float> &centerPosition, double radius, unsigned int segmentCount) :
+GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, const LinearAlgebraVector &centerPosition, double radius, unsigned int segmentCount) :
     m_radius(radius),
     m_centerPosition(centerPosition),
     m_verticeCount(segmentCount) {
@@ -30,7 +30,7 @@ GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, cons
         float x = m_radius * cos(angle);
         float y = m_radius * sin(angle);
         float z = 0;
-        auto vertex = std::make_tuple(x, y, z);
+        auto vertex = LinearAlgebraVector(x, y, z);
         m_triangles[i]->setPointOne(vertex);
 
         unsigned int previousIndex;
@@ -43,7 +43,7 @@ GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, cons
         }
 
         m_triangles[previousIndex]->setPointTwo(vertex);
-        m_triangles[i]->setPointThree(std::make_tuple<double, double, double>(0, 0, 0));
+        m_triangles[i]->setPointThree(LinearAlgebraVector(0, 0, 0));
     }
 
     setCenterPosition(centerPosition);
@@ -64,13 +64,13 @@ GraphicObjectCircleFilled::~GraphicObjectCircleFilled() {
     m_triangles.clear();
 }
 
-void GraphicObjectCircleFilled::setCenterPosition(const std::tuple<float, float, float> &centerPosition) {
+void GraphicObjectCircleFilled::setCenterPosition(const LinearAlgebraVector &centerPosition) {
     m_centerPosition = centerPosition;
     glm::mat4 transformation = glm::mat4(1.0f);
     transformation = glm::translate(transformation, glm::vec3(
-        std::get<0>(centerPosition), 
-        std::get<1>(centerPosition), 
-        std::get<2>(centerPosition)));
+        centerPosition.getX(), 
+        centerPosition.getY(), 
+        centerPosition.getZ()));
     m_vertexShader->setTransformation(transformation);
 }
 

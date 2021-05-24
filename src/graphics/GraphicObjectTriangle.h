@@ -2,20 +2,20 @@
 #define PLANETCANNONS_GRAPHICOBJECTTRIANGLE_H
 
 #include "IGraphicObject.h"
-#include <tuple>
 
 class ShaderProgram;
+class LinearAlgebraVector;
 
 class GraphicObjectTriangle : public IGraphicObject {
     public: 
-        GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree, const ShaderProgram &shaderProgram);
+        GraphicObjectTriangle(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const ShaderProgram &shaderProgram);
         GraphicObjectTriangle(const ShaderProgram &shaderProgram);
         virtual ~GraphicObjectTriangle();
         virtual void update() const;
-        void setPoints(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree);
-        void setPointOne(const std::tuple<float, float, float> &point);
-        void setPointTwo(const std::tuple<float, float, float> &point);
-        void setPointThree(const std::tuple<float, float, float> &point);
+        void setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree);
+        void setPointOne(const LinearAlgebraVector &point);
+        void setPointTwo(const LinearAlgebraVector &point);
+        void setPointThree(const LinearAlgebraVector &point);
 
     private:
         void initialize();

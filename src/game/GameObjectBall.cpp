@@ -4,8 +4,9 @@
 #include "utils/ILogger.h"
 #include "physics/IPhysicEngine.h"
 #include "graphics/IGraphicEngine.h"
+#include "math/LinearAlgebraVector.h"
 
-GameObjectBall::GameObjectBall(const ILogger &logger, const std::tuple<float, float, float> &centerPosition, const std::tuple<float, float, float> &velocity, double radius, double mass) :
+GameObjectBall::GameObjectBall(const ILogger &logger, const LinearAlgebraVector &centerPosition, const LinearAlgebraVector &velocity, double radius, double mass) :
     m_logger(logger) {
     m_graphicObject = new GraphicObjectCircleFilled(logger, centerPosition, radius, 32);
     m_physicObject = new PhysicObjectBall(logger, mass, radius, centerPosition, velocity);

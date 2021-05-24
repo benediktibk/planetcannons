@@ -2,18 +2,18 @@
 #define PLANETCANNONS_GAMEOBJECTBALL_H
 
 #include "IGameObject.h"
-#include <tuple>
 
 class ILogger;
 class GraphicObjectCircleFilled;
 class PhysicObjectBall;
+class LinearAlgebraVector;
 
 class GameObjectBall : public IGameObject {
     public: 
         GameObjectBall(
             const ILogger &logger, 
-            const std::tuple<float, float, float> &centerPosition, 
-            const std::tuple<float, float, float> &velocity, 
+            const LinearAlgebraVector &centerPosition, 
+            const LinearAlgebraVector &velocity, 
             double radius, 
             double mass);
         virtual ~GameObjectBall();

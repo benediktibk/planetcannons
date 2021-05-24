@@ -2,15 +2,14 @@
 #define PLANETCANNONS_PHYSICOBJECTBALLSTATIC_H
 
 #include "PhysicObjectBall.h"
-#include <tuple>
 
 class ILogger;
 
 class PhysicObjectBallStatic : public PhysicObjectBall {
     public:
-        PhysicObjectBallStatic(const ILogger &logger, double mass, double radius, const std::tuple<double, double, double> &position);
+        PhysicObjectBallStatic(const ILogger &logger, double mass, double radius, const LinearAlgebraVector &position);
         
-        virtual void applyForce(const std::tuple<double, double, double> &force, double time);
+        virtual void applyForce(const LinearAlgebraVector &force, double time);
 };
 
 #endif

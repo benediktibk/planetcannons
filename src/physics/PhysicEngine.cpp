@@ -1,6 +1,5 @@
 #include "PhysicEngine.h"
 #include "IPhysicObject.h"
-#include "math/LinearAlgebra.h"
 #include "utils/ILogger.h"
 #include <sstream>
 
@@ -19,10 +18,10 @@ void PhysicEngine::execute(double timeSpan) {
 
     while (timeSpan - time > 1e-6) {
         double currentTimestep = std::min(m_maximumTimestep, timeSpan - time);
-        std::vector<std::tuple<double, double, double> > totalForces;
+        std::vector<LinearAlgebraVector> totalForces;
 
         for (auto object = m_objects.begin(); object != m_objects.end(); ++object) {
-            auto totalForce = std::make_tuple<double, double, double>(0, 0, 0);
+            auto totalForce = LinearAlgebraVector(0, 0, 0);
             auto objectPointer = *object;
 
             for (auto otherObject = m_objects.begin(); otherObject != m_objects.end(); ++otherObject) {
@@ -32,11 +31,11 @@ void PhysicEngine::execute(double timeSpan) {
 
                 auto otherObjectPointer = *otherObject;
 
-                auto distanceVector = LinearAlgebra::subtract(objectPointer->getCenterOfGravity(), otherObjectPointer->getCenterOfGravity());
-                auto distance = LinearAlgebra::norm(distanceVector);
+                auto distanceVector = objectPointer->getCenterOfGravity() - otherObjectPointer->getCenterOfGravity();
+                auto distance = distanceVector.norm();
                 auto factor = (-1)*m_gravitationalConstant*objectPointer->getMass()*otherObjectPointer->getMass()/(distance*distance*distance);
-                auto force = LinearAlgebra::multiply(factor, distanceVector);
-                totalForce = LinearAlgebra::add(totalForce, force);
+                auto force = factor * distanceVector;
+                totalForce = totalForce + force;
             }
 
             totalForces.push_back(totalForce);

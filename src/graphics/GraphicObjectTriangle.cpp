@@ -1,10 +1,11 @@
 #include "GraphicObjectTriangle.h"
 #include "ShaderProgram.h"
+#include "math/LinearAlgebraVector.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-GraphicObjectTriangle::GraphicObjectTriangle(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree, const ShaderProgram &shaderProgram) :
+GraphicObjectTriangle::GraphicObjectTriangle(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const ShaderProgram &shaderProgram) :
     m_shaderProgram(shaderProgram) {
     setPoints(pointOne, pointTwo, pointThree);
     initialize();
@@ -34,34 +35,34 @@ void GraphicObjectTriangle::initialize() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 }
 
-void GraphicObjectTriangle::setPoints(const std::tuple<float, float, float> &pointOne, const std::tuple<float, float, float> &pointTwo, const std::tuple<float, float, float> &pointThree) {
-    m_coordinates[0] = std::get<0>(pointOne);
-    m_coordinates[1] = std::get<1>(pointOne);
-    m_coordinates[2] = std::get<2>(pointOne);
-    m_coordinates[3] = std::get<0>(pointTwo);
-    m_coordinates[4] = std::get<1>(pointTwo);
-    m_coordinates[5] = std::get<2>(pointTwo);
-    m_coordinates[6] = std::get<0>(pointThree);
-    m_coordinates[7] = std::get<1>(pointThree);
-    m_coordinates[8] = std::get<2>(pointThree);
+void GraphicObjectTriangle::setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree) {
+    m_coordinates[0] = pointOne.getX();
+    m_coordinates[1] = pointOne.getY();
+    m_coordinates[2] = pointOne.getZ();
+    m_coordinates[3] = pointTwo.getX();
+    m_coordinates[4] = pointTwo.getY();
+    m_coordinates[5] = pointTwo.getZ();
+    m_coordinates[6] = pointThree.getX();
+    m_coordinates[7] = pointThree.getY();
+    m_coordinates[8] = pointThree.getZ();
 }
 
-void GraphicObjectTriangle::setPointOne(const std::tuple<float, float, float> &point) {
-    m_coordinates[0] = std::get<0>(point);
-    m_coordinates[1] = std::get<1>(point);
-    m_coordinates[2] = std::get<2>(point);
+void GraphicObjectTriangle::setPointOne(const LinearAlgebraVector &point) {
+    m_coordinates[0] = point.getX();
+    m_coordinates[1] = point.getY();
+    m_coordinates[2] = point.getZ();
 }
 
-void GraphicObjectTriangle::setPointTwo(const std::tuple<float, float, float> &point) {
-    m_coordinates[3] = std::get<0>(point);
-    m_coordinates[4] = std::get<1>(point);
-    m_coordinates[5] = std::get<2>(point);
+void GraphicObjectTriangle::setPointTwo(const LinearAlgebraVector &point) {
+    m_coordinates[3] = point.getX();
+    m_coordinates[4] = point.getY();
+    m_coordinates[5] = point.getZ();
 }
 
-void GraphicObjectTriangle::setPointThree(const std::tuple<float, float, float> &point) {
-    m_coordinates[6] = std::get<0>(point);
-    m_coordinates[7] = std::get<1>(point);
-    m_coordinates[8] = std::get<2>(point);
+void GraphicObjectTriangle::setPointThree(const LinearAlgebraVector &point) {
+    m_coordinates[6] = point.getX();
+    m_coordinates[7] = point.getY();
+    m_coordinates[8] = point.getZ();
 }
 
 void GraphicObjectTriangle::update() const {
