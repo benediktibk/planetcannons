@@ -5,6 +5,7 @@
 #include "utils/Clock.h"
 #include "IGameObject.h"
 #include "math/LinearAlgebraVector.h"
+#include "math/GeometrySphere.h"
 #include <GLFW/glfw3.h>
 #include <unistd.h>
 #include <cmath>
@@ -39,31 +40,33 @@ void GameEngine::execute() {
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
     double minimumFrameLength = 1.0/m_maximumFramesPerSecond;
 
-    double xPosition = 0.0;
-    double yPosition = 0.0;
+    double phi = 0.0;
+    double theta = 0.0;
     unsigned int frames = 0;
     uint64_t lastTimeFpsOutputCreatedInMilliseconds = lastTimeInMilliseconds;
     uint64_t lastTimePhysicUpdateInMilliseconds = lastTimeInMilliseconds;
     double correctionFactorSleepTime = 0.95;
-
-    m_graphicEngine.setCamera(LinearAlgebraVector(0, 0.2, 1), LinearAlgebraVector(0, 0, 0), M_PI/2, 1, 0.1, 100);
+    GeometrySphere sphere(LinearAlgebraVector(0, 0, 0), 1);
 
 	while (!m_graphicEngine.closeRequested()) {
         if (m_graphicEngine.keyPressed(GLFW_KEY_LEFT)) {
-            xPosition -= 0.01;
+            phi -= 0.01;
         }
 
         if (m_graphicEngine.keyPressed(GLFW_KEY_RIGHT)) {
-            xPosition += 0.01;
+            phi += 0.01;
         }
 
         if (m_graphicEngine.keyPressed(GLFW_KEY_DOWN)) {
-            yPosition -= 0.01;
+            theta -= 0.01;
         }
 
         if (m_graphicEngine.keyPressed(GLFW_KEY_UP)) {
-            yPosition += 0.01;
+            theta += 0.01;
         }
+
+        auto cameraPosition = sphere.calculatePoint(phi, theta);
+        m_graphicEngine.setCamera(cameraPosition, LinearAlgebraVector(0, 0, 0), M_PI/2, 1, 0.1, 100);
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
         double timeSpanForPhysicSimulation = (currentTimeInMilliseconds - lastTimePhysicUpdateInMilliseconds) / 1000.0;
