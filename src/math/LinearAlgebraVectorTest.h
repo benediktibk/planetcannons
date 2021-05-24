@@ -15,6 +15,7 @@ class LinearAlgebraVectorTest : public CppUnit::TestFixture {
         CPPUNIT_TEST(operatorSubtract_validVector_correctResult);
         CPPUNIT_TEST(operatorMultiplyWithScalar_validScalar_correctResult);
         CPPUNIT_TEST(operatorMultiplyWithScalarAsFirstOperator_validScalar_correctResult);
+        CPPUNIT_TEST(operatorCastToTuple_validVector_correctResult);
         CPPUNIT_TEST_SUITE_END();
 
     public:
@@ -27,6 +28,7 @@ class LinearAlgebraVectorTest : public CppUnit::TestFixture {
         void operatorSubtract_validVector_correctResult();
         void operatorMultiplyWithScalar_validScalar_correctResult();
         void operatorMultiplyWithScalarAsFirstOperator_validScalar_correctResult();
+        void operatorCastToTuple_validVector_correctResult();
 
     private:
 };

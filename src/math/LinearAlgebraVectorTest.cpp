@@ -71,3 +71,13 @@ void LinearAlgebraVectorTest::operatorMultiplyWithScalarAsFirstOperator_validSca
 
     CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(10, 14, 2), result, 1e-6));
 }
+
+void LinearAlgebraVectorTest::operatorCastToTuple_validVector_correctResult() {
+    LinearAlgebraVector a(5, 7, 1);
+
+    auto result = (std::tuple<double, double, double>)a;
+
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(5, std::get<0>(result), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(7, std::get<1>(result), 1e-6);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(1, std::get<2>(result), 1e-6);
+}

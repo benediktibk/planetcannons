@@ -51,3 +51,7 @@ LinearAlgebraVector LinearAlgebraVector::operator*(double rhs) const {
 LinearAlgebraVector operator*(double a, const LinearAlgebraVector &b) {
     return b*a;
 }
+
+LinearAlgebraVector::operator std::tuple<double, double, double>() const {
+    return std::make_tuple(m_x, m_y, m_z);
+}

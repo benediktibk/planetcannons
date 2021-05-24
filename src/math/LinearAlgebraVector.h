@@ -18,6 +18,7 @@ class LinearAlgebraVector {
         LinearAlgebraVector operator+(const LinearAlgebraVector &rhs) const;
         LinearAlgebraVector operator-(const LinearAlgebraVector &rhs) const;
         LinearAlgebraVector operator*(double rhs) const;
+        operator std::tuple<double, double, double>() const;
 
     private:
         double m_x;
