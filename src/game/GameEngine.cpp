@@ -49,19 +49,19 @@ void GameEngine::execute() {
     GeometrySphere sphere(LinearAlgebraVector(0, 0, 0), 1);
 
 	while (!m_graphicEngine.closeRequested()) {
-        if (m_graphicEngine.keyPressed(GLFW_KEY_LEFT)) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_DOWN)) {
             phi -= 0.01;
         }
 
-        if (m_graphicEngine.keyPressed(GLFW_KEY_RIGHT)) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_UP)) {
             phi += 0.01;
         }
 
-        if (m_graphicEngine.keyPressed(GLFW_KEY_DOWN)) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_LEFT)) {
             theta -= 0.01;
         }
 
-        if (m_graphicEngine.keyPressed(GLFW_KEY_UP)) {
+        if (m_graphicEngine.keyPressed(GLFW_KEY_RIGHT)) {
             theta += 0.01;
         }
 
@@ -81,7 +81,7 @@ void GameEngine::execute() {
             theta -= 2*M_PI;
         }
 
-        auto cameraPosition = sphere.calculatePoint(phi, theta);
+        auto cameraPosition = sphere.calculatePoint(theta, phi);
         m_graphicEngine.setCamera(cameraPosition, LinearAlgebraVector(0, 0, 0), M_PI/2, 1, 0.1, 100);
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
