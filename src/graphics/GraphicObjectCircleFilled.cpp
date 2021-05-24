@@ -71,7 +71,7 @@ void GraphicObjectCircleFilled::setCenterPosition(const LinearAlgebraVector &cen
         centerPosition.getX(), 
         centerPosition.getY(), 
         centerPosition.getZ()));
-    m_vertexShader->setTransformation(transformation);
+    m_vertexShader->setTransformationLocalToWorld(transformation);
 }
 
 void GraphicObjectCircleFilled::update() const {

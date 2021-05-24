@@ -7,13 +7,18 @@
 class TransformationVertexShader : public VertexShader {
     public:
         TransformationVertexShader(const ILogger &logger);
-        void setTransformation(const glm::mat4 &transformation);
+
+        void setTransformationLocalToWorld(const glm::mat4 &transformation);
+        void setTransformationWorldToView(const glm::mat4 &transformation);
+        void setTransformationViewToPerspective(const glm::mat4 &transformation);
 
     protected:
         virtual void updateUniformsInternal(unsigned int shaderProgramId);
 
     private:
-        glm::mat4 m_transformation;
+        glm::mat4 m_transformationLocalToWorld;
+        glm::mat4 m_transformationWorldToView;
+        glm::mat4 m_transformationViewToPerspective;
 };
 
 #endif
