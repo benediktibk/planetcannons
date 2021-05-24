@@ -10,6 +10,7 @@ class GeometrySphereTest : public CppUnit::TestFixture {
         CPPUNIT_TEST(calculatePoint_anglePiAndPiHalf_correctPoint);
         CPPUNIT_TEST(calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircle_northPole);
         CPPUNIT_TEST(calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircleAndHalfRadius_northPole);
+        CPPUNIT_TEST(calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircleReverse_southPole);
         CPPUNIT_TEST_SUITE_END();
 
     public:
@@ -17,6 +18,7 @@ class GeometrySphereTest : public CppUnit::TestFixture {
         void calculatePoint_anglePiAndPiHalf_correctPoint();
         void calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircle_northPole();
         void calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircleAndHalfRadius_northPole();
+        void calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircleReverse_southPole();
 
     private:
 };

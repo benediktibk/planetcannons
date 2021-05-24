@@ -33,3 +33,11 @@ void GeometrySphereTest::calculatePointFromDistanceOnSurface_equatorAndQuarterCi
 
     CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5, 7, 1.5), result, 1e-6));
 }
+
+void GeometrySphereTest::calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircleReverse_southPole() {
+    GeometrySphere sphere(LinearAlgebraVector(5, 7, 1), 1);
+
+    auto result = sphere.calculatePointFromDistanceOnSurface(LinearAlgebraVector(6, 7, 1), (-1)*M_PI/2, (-1)*M_PI/2);
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5, 7, 0), result, 1e-6));
+}
