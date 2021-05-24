@@ -3,6 +3,7 @@
 #include "GraphicObjectTriangle.h"
 #include "TransformationVertexShader.h"
 #include "FixedColorFragmentShader.h"
+#include "math/GeometryCircle.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -25,12 +26,11 @@ GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, cons
         m_triangles.push_back(new GraphicObjectTriangle(*m_shaderProgram));
     }
 
+    GeometryCircle circle(LinearAlgebraVector(0, 0, 0), m_radius);
+
     for (unsigned int i = 0; i < m_verticeCount; ++i) {
         double angle = 2 * M_PI * i / (double)m_verticeCount;
-        float x = m_radius * cos(angle);
-        float y = m_radius * sin(angle);
-        float z = 0;
-        auto vertex = LinearAlgebraVector(x, y, z);
+        auto vertex = circle.calculatePoint(angle);
         m_triangles[i]->setPointOne(vertex);
 
         unsigned int previousIndex;

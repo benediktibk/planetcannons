@@ -1,6 +1,7 @@
 #include "GraphicObjectCircle.h"
 #include "ShaderProgram.h"
 #include "math/LinearAlgebraVector.h"
+#include "math/GeometryCircle.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -42,13 +43,11 @@ void GraphicObjectCircle::setCenterPosition(const LinearAlgebraVector &centerPos
     vertices.reserve(m_verticeCount);
 
     m_centerPosition = centerPosition;
+    GeometryCircle circle(m_centerPosition, m_radius);
 
     for (unsigned int i = 0; i < m_verticeCount; ++i) {
         double angle = 2 * M_PI * i / (double)m_verticeCount;
-        float x = m_centerPosition.getX() + m_radius * cos(angle);
-        float y = m_centerPosition.getY() + m_radius * sin(angle);
-        float z = m_centerPosition.getZ();
-        vertices.push_back(LinearAlgebraVector(x, y, z));
+        vertices.push_back(circle.calculatePoint(angle));
     }
 
     unsigned int m_verticesCoordinatesPosition = 0;
