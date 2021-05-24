@@ -19,6 +19,7 @@ class GraphicEngine : public IGraphicEngine {
         virtual void remove(IGraphicObject &graphicObject);
         virtual bool keyPressed(unsigned int keyType);
         virtual IShaderFactory& getShaderFactory();
+        virtual void setCamera(const LinearAlgebraVector &position, const LinearAlgebraVector &target, double fieldOfView, double aspectRatio, double nearPlane, double farPlane);
 
     private:
         static void glfwErrorCallback(int error, const char* description);

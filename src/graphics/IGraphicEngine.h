@@ -3,6 +3,7 @@
 
 class IGraphicObject;
 class IShaderFactory;
+class LinearAlgebraVector;
 
 class IGraphicEngine {
     public:
@@ -12,6 +13,7 @@ class IGraphicEngine {
         virtual void remove(IGraphicObject &graphicObject) = 0;
         virtual bool keyPressed(unsigned int keyType) = 0;
         virtual IShaderFactory& getShaderFactory() = 0;
+        virtual void setCamera(const LinearAlgebraVector &position, const LinearAlgebraVector &target, double fieldOfView, double aspectRatio, double nearPlane, double farPlane) = 0;
 
         IGraphicEngine() {};
         ~IGraphicEngine() {};

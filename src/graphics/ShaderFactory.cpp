@@ -21,19 +21,26 @@ ShaderProgram* ShaderFactory::createShaderProgram(VertexShader &vertexShader, Fr
     return new ShaderProgram(m_logger, vertexShader, fragmentShader);
 }
 
-void ShaderFactory::registerVertexShader(const VertexShader &shader) {
+void ShaderFactory::registerVertexShader(VertexShader &shader) {
     m_vertexShader.push_back(&shader);
 }
 
-void ShaderFactory::registerFragmentShader(const FragmentShader &shader) {
+void ShaderFactory::registerFragmentShader(FragmentShader &shader) {
     m_fragmentShader.push_back(&shader);
 }
 
-void ShaderFactory::unregisterVertexShader(const VertexShader &shader) {
+void ShaderFactory::unregisterVertexShader(VertexShader &shader) {
     std::remove(m_vertexShader.begin(), m_vertexShader.end(), &shader);
     std::remove(m_transformationVertexShader.begin(), m_transformationVertexShader.end(), &shader);
 }
 
-void ShaderFactory::unregisterFragmentShader(const FragmentShader &shader) {
+void ShaderFactory::unregisterFragmentShader(FragmentShader &shader) {
     std::remove(m_fragmentShader.begin(), m_fragmentShader.end(), &shader);
+}
+
+void ShaderFactory::updateGlobalTransformations(const glm::mat4 &transformationWorldToView, const glm::mat4 &transformationViewToPerspective) {
+    for (auto shader = m_transformationVertexShader.begin(); shader != m_transformationVertexShader.end(); ++shader) {
+        (*shader)->setTransformationWorldToView(transformationWorldToView);
+        (*shader)->setTransformationViewToPerspective(transformationViewToPerspective);
+    }
 }

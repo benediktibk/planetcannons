@@ -2,9 +2,11 @@
 #include "utils/ILogger.h"
 #include "IGraphicObject.h"
 #include "ShaderFactory.h"
+#include "math/LinearAlgebraVector.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include "glm/gtc/matrix_transform.hpp"
 #include <sstream>
 #include <cstring>
 
@@ -194,4 +196,16 @@ void GraphicEngine::logOpenGlParameter() {
 
 IShaderFactory& GraphicEngine::getShaderFactory() {
     return *m_shaderFactory;
+}
+
+void GraphicEngine::setCamera(const LinearAlgebraVector &position, const LinearAlgebraVector &target, double fieldOfView, double aspectRatio, double nearPlane, double farPlane) {
+    glm::vec3 cameraPosition = glm::vec3(position.getX(), position.getY(), position.getZ());
+    glm::vec3 cameraTarget = glm::vec3(target.getX(), target.getY(), target.getZ());
+    glm::vec3 worldSpaceY = glm::vec3(0.0f, 1.0f, 0.0f); 
+    glm::mat4 transformationWorldToView = glm::lookAt(
+            cameraPosition, 
+            cameraTarget, 
+            worldSpaceY);
+    glm::mat4 transformationViewToPerspective = glm::perspective(fieldOfView, aspectRatio, nearPlane, farPlane);
+    m_shaderFactory->updateGlobalTransformations(transformationWorldToView, transformationViewToPerspective);
 }
