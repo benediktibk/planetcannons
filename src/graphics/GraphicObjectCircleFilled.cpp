@@ -15,8 +15,7 @@
 
 GraphicObjectCircleFilled::GraphicObjectCircleFilled(IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius, unsigned int segmentCount) :
     m_radius(radius),
-    m_centerPosition(centerPosition),
-    m_verticeCount(segmentCount) {
+    m_centerPosition(centerPosition) {
     m_triangles.reserve(segmentCount);
 
     m_vertexShader = shaderFactory.createTransformationVertexShader();
@@ -29,15 +28,15 @@ GraphicObjectCircleFilled::GraphicObjectCircleFilled(IShaderFactory &shaderFacto
 
     GeometryCircle circle(LinearAlgebraVector(0, 0, 0), m_radius);
 
-    for (unsigned int i = 0; i < m_verticeCount; ++i) {
-        double angle = 2 * M_PI * i / (double)m_verticeCount;
+    for (unsigned int i = 0; i < segmentCount; ++i) {
+        double angle = 2 * M_PI * i / (double)segmentCount;
         auto vertex = circle.calculatePoint(angle);
         m_triangles[i]->setPointOne(vertex);
 
         unsigned int previousIndex;
 
         if (i == 0) {
-            previousIndex = m_verticeCount - 1;
+            previousIndex = segmentCount - 1;
         } 
         else {
             previousIndex = i - 1;

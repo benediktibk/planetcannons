@@ -1,5 +1,5 @@
-#ifndef PLANETCANNONS_GRAPHICOBJECTCIRCLEFILLED_H
-#define PLANETCANNONS_GRAPHICOBJECTCIRCLEFILLED_H
+#ifndef PLANETCANNONS_GRAPHICOBJECTICOSAHEDRON_H
+#define PLANETCANNONS_GRAPHICOBJECTICOSAHEDRON_H
 
 #include "IGraphicObject.h"
 #include "math/LinearAlgebraVector.h"
@@ -12,10 +12,10 @@ class GraphicObjectTriangle;
 class IShaderFactory;
 class LinearAlgebraVector;
 
-class GraphicObjectCircleFilled : public IGraphicObject {
+class GraphicObjectIcosahedron : public IGraphicObject {
     public: 
-        GraphicObjectCircleFilled(IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius, unsigned int segmentCount);
-        virtual ~GraphicObjectCircleFilled();
+        GraphicObjectIcosahedron(IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius);
+        virtual ~GraphicObjectIcosahedron();
         virtual void update() const;
         void setCenterPosition(const LinearAlgebraVector &centerPosition);
 

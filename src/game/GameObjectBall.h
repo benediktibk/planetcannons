@@ -4,7 +4,7 @@
 #include "IGameObject.h"
 
 class ILogger;
-class GraphicObjectCircleFilled;
+class GraphicObjectIcosahedron;
 class PhysicObjectBall;
 class LinearAlgebraVector;
 class IShaderFactory;
@@ -27,7 +27,7 @@ class GameObjectBall : public IGameObject {
 
     private:
         const ILogger &m_logger;
-        GraphicObjectCircleFilled *m_graphicObject;
+        GraphicObjectIcosahedron *m_graphicObject;
         PhysicObjectBall *m_physicObject;
 };
 
