@@ -18,6 +18,7 @@ class GraphicEngine : public IGraphicEngine {
         virtual void add(IGraphicObject &graphicObject);
         virtual void remove(IGraphicObject &graphicObject);
         virtual bool keyPressed(unsigned int keyType);
+        virtual IShaderFactory& getShaderFactory();
 
     private:
         static void glfwErrorCallback(int error, const char* description);
@@ -31,6 +32,7 @@ class GraphicEngine : public IGraphicEngine {
 
     private:
         const ILogger &m_logger;
+        IShaderFactory *m_shaderFactory;
         GLFWwindow *m_window;
         bool m_initialzed;
         std::vector<IGraphicObject*> m_objects;

@@ -5,7 +5,8 @@
 
 class VertexShader : public Shader {
     public:
-        VertexShader(const ILogger &logger, const std::string &shaderFileName);
+        VertexShader(const ILogger &logger, const std::string &shaderFileName, IShaderRegistry &registry);
+        virtual ~VertexShader();
 };
 
 #endif

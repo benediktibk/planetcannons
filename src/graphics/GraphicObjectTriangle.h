@@ -10,8 +10,10 @@ class GraphicObjectTriangle : public IGraphicObject {
     public: 
         GraphicObjectTriangle(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const ShaderProgram &shaderProgram);
         GraphicObjectTriangle(const ShaderProgram &shaderProgram);
+        
         virtual ~GraphicObjectTriangle();
         virtual void update() const;
+
         void setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree);
         void setPointOne(const LinearAlgebraVector &point);
         void setPointTwo(const LinearAlgebraVector &point);

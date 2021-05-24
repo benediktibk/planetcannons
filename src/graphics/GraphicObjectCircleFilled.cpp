@@ -4,6 +4,7 @@
 #include "TransformationVertexShader.h"
 #include "FixedColorFragmentShader.h"
 #include "math/GeometryCircle.h"
+#include "IShaderFactory.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -12,15 +13,15 @@
 #include <cmath>
 #include <vector>
 
-GraphicObjectCircleFilled::GraphicObjectCircleFilled(const ILogger &logger, const LinearAlgebraVector &centerPosition, double radius, unsigned int segmentCount) :
+GraphicObjectCircleFilled::GraphicObjectCircleFilled(IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius, unsigned int segmentCount) :
     m_radius(radius),
     m_centerPosition(centerPosition),
     m_verticeCount(segmentCount) {
     m_triangles.reserve(segmentCount);
 
-    m_vertexShader = new TransformationVertexShader(logger);
-    m_fragmentShader = new FixedColorFragmentShader(logger, std::make_tuple<float, float, float, float>(0, 1, 0.5, 1.0));
-    m_shaderProgram = new ShaderProgram(logger, *m_vertexShader, *m_fragmentShader);
+    m_vertexShader = shaderFactory.createTransformationVertexShader();
+    m_fragmentShader = shaderFactory.createFixedColorFragmentShader(std::make_tuple<float, float, float, float>(0, 1, 0.5, 1.0));
+    m_shaderProgram = shaderFactory.createShaderProgram(*m_vertexShader, *m_fragmentShader);
 
     for (size_t i = 0; i < segmentCount; ++i) {
         m_triangles.push_back(new GraphicObjectTriangle(*m_shaderProgram));

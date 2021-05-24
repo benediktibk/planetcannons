@@ -1,8 +1,8 @@
 #include "FixedColorFragmentShader.h"
 #include <GL/glew.h>
 
-FixedColorFragmentShader::FixedColorFragmentShader(const ILogger &logger, const std::tuple<float, float, float, float> &color) :
-    FragmentShader(logger, "fixedColor.frag"),
+FixedColorFragmentShader::FixedColorFragmentShader(const ILogger &logger, const std::tuple<float, float, float, float> &color, IShaderRegistry &registry) :
+    FragmentShader(logger, "fixedColor.frag", registry),
     m_color(color) { 
 }
 

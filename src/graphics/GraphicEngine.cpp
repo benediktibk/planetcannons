@@ -1,6 +1,7 @@
 #include "GraphicEngine.h"
 #include "utils/ILogger.h"
 #include "IGraphicObject.h"
+#include "ShaderFactory.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -34,6 +35,7 @@ void GraphicEngine::glfwErrorCallback(int error, const char* description) {
 GraphicEngine::GraphicEngine(const ILogger &logger) :
     m_logger(logger),
     m_initialzed(false) {
+    m_shaderFactory = new ShaderFactory(m_logger);
     glfwSetErrorCallback(GraphicEngine::glfwErrorCallback);
     bool success = glfwInit();
 
@@ -128,6 +130,8 @@ void GraphicEngine::update() {
 GraphicEngine::~GraphicEngine() {
     m_objects.clear();
 	glfwTerminate();
+    delete m_shaderFactory;
+    m_shaderFactory = 0;
 }
 
 void GraphicEngine::add(IGraphicObject &graphicObject) {
@@ -186,4 +190,8 @@ void GraphicEngine::logOpenGlParameter() {
     glGetBooleanv(GL_STEREO, &stereoValue);
     logStream << "GL_STEREO: " << (unsigned int)stereoValue;
     m_logger.info(logStream.str());
+}
+
+IShaderFactory& GraphicEngine::getShaderFactory() {
+    return *m_shaderFactory;
 }

@@ -5,7 +5,8 @@
 
 class FragmentShader : public Shader {
     public:
-        FragmentShader(const ILogger &logger, const std::string &shaderFileName);
+        FragmentShader(const ILogger &logger, const std::string &shaderFileName, IShaderRegistry &registry);
+        virtual ~FragmentShader();
 };
 
 #endif

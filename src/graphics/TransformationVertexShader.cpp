@@ -2,8 +2,8 @@
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 
-TransformationVertexShader::TransformationVertexShader(const ILogger &logger) :
-    VertexShader(logger, "transformation.vert"),
+TransformationVertexShader::TransformationVertexShader(const ILogger &logger, IShaderRegistry &registry) :
+    VertexShader(logger, "transformation.vert", registry),
     m_transformationLocalToWorld(1.0f),
     m_transformationWorldToView(1.0f),
     m_transformationViewToPerspective(1.0f) { 

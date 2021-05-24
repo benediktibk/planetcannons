@@ -7,11 +7,13 @@ class ILogger;
 class GraphicObjectCircleFilled;
 class PhysicObjectBall;
 class LinearAlgebraVector;
+class IShaderFactory;
 
 class GameObjectBall : public IGameObject {
     public: 
         GameObjectBall(
             const ILogger &logger, 
+            IShaderFactory &shaderFactory,
             const LinearAlgebraVector &centerPosition, 
             const LinearAlgebraVector &velocity, 
             double radius, 

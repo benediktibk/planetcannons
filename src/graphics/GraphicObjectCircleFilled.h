@@ -9,12 +9,12 @@ class ShaderProgram;
 class TransformationVertexShader;
 class FixedColorFragmentShader;
 class GraphicObjectTriangle;
-class ILogger;
+class IShaderFactory;
 class LinearAlgebraVector;
 
 class GraphicObjectCircleFilled : public IGraphicObject {
     public: 
-        GraphicObjectCircleFilled(const ILogger &logger, const LinearAlgebraVector &centerPosition, double radius, unsigned int segmentCount);
+        GraphicObjectCircleFilled(IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius, unsigned int segmentCount);
         virtual ~GraphicObjectCircleFilled();
         virtual void update() const;
         void setCenterPosition(const LinearAlgebraVector &centerPosition);

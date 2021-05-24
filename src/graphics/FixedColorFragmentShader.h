@@ -6,7 +6,7 @@
 
 class FixedColorFragmentShader : public FragmentShader {
     public:
-        FixedColorFragmentShader(const ILogger &logger, const std::tuple<float, float, float, float> &color);
+        FixedColorFragmentShader(const ILogger &logger, const std::tuple<float, float, float, float> &color, IShaderRegistry &registry);
 
     protected:
         virtual void updateUniformsInternal(unsigned int shaderProgramId);

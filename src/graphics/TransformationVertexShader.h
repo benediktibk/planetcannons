@@ -6,7 +6,7 @@
 
 class TransformationVertexShader : public VertexShader {
     public:
-        TransformationVertexShader(const ILogger &logger);
+        TransformationVertexShader(const ILogger &logger, IShaderRegistry &registry);
 
         void setTransformationLocalToWorld(const glm::mat4 &transformation);
         void setTransformationWorldToView(const glm::mat4 &transformation);

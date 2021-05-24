@@ -6,8 +6,9 @@
 #include <sstream>
 #include <fstream>
 
-Shader::Shader(const ILogger &logger, const std::string &shaderFileName, unsigned int shaderType) :
+Shader::Shader(const ILogger &logger, const std::string &shaderFileName, unsigned int shaderType, IShaderRegistry &registry) :
     m_logger(logger),
+    m_registry(registry),
     m_initialized(false),
     m_uniformsUpdateNecessary(true) {
     std::stringstream logStream;
@@ -50,7 +51,8 @@ Shader::Shader(const ILogger &logger, const std::string &shaderFileName, unsigne
 }
 
 Shader::Shader(const Shader &rhs) :
-    m_logger(rhs.m_logger) {
+    m_logger(rhs.m_logger),
+    m_registry(rhs.m_registry) {
 }
 
 Shader::~Shader() {

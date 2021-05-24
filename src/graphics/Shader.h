@@ -4,10 +4,11 @@
 #include <string>
 
 class ILogger;
+class IShaderRegistry;
 
 class Shader {
     public:
-        Shader(const ILogger &logger, const std::string &shaderFileName, unsigned int shaderType);
+        Shader(const ILogger &logger, const std::string &shaderFileName, unsigned int shaderType, IShaderRegistry &registry);
         unsigned int getId() const;
         virtual ~Shader();
         bool isInitialized() const;
@@ -23,6 +24,7 @@ class Shader {
 
     protected:
         const ILogger &m_logger;
+        IShaderRegistry &m_registry;
 
     private:
         unsigned int m_shader;

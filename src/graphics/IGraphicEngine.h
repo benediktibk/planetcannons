@@ -2,6 +2,7 @@
 #define PLANETCANNONS_IGRAPHICENGINE_H
 
 class IGraphicObject;
+class IShaderFactory;
 
 class IGraphicEngine {
     public:
@@ -10,6 +11,7 @@ class IGraphicEngine {
         virtual void add(IGraphicObject &graphicObject) = 0;
         virtual void remove(IGraphicObject &graphicObject) = 0;
         virtual bool keyPressed(unsigned int keyType) = 0;
+        virtual IShaderFactory& getShaderFactory() = 0;
 
         IGraphicEngine() {};
         ~IGraphicEngine() {};
