@@ -1,5 +1,4 @@
 #include "PhysicObjectBallTest.h"
-#include "LoggerMock.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(PhysicObjectBallTest);
 

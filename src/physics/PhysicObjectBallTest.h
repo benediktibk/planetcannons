@@ -3,7 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 #include "PhysicObjectBall.h"
-#include "LoggerMock.h"
+#include "utils/LoggerMock.h"
 
 class PhysicObjectBallTest : public CppUnit::TestFixture {
         CPPUNIT_TEST_SUITE(PhysicObjectBallTest);

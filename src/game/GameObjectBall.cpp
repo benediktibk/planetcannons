@@ -1,9 +1,9 @@
 #include "GameObjectBall.h"
-#include "GraphicObjectCircleFilled.h"
-#include "PhysicObjectBall.h"
-#include "ILogger.h"
-#include "IPhysicEngine.h"
-#include "IGraphicEngine.h"
+#include "graphics/GraphicObjectCircleFilled.h"
+#include "physics/PhysicObjectBall.h"
+#include "utils/ILogger.h"
+#include "physics/IPhysicEngine.h"
+#include "graphics/IGraphicEngine.h"
 
 GameObjectBall::GameObjectBall(const ILogger &logger, const std::tuple<float, float, float> &centerPosition, const std::tuple<float, float, float> &velocity, double radius, double mass) :
     m_logger(logger) {

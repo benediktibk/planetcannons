@@ -1,6 +1,6 @@
 #include "PhysicObjectBallStatic.h"
-#include "ILogger.h"
-#include "LinearAlgebra.h"
+#include "utils/ILogger.h"
+#include "math/LinearAlgebra.h"
 
 PhysicObjectBallStatic::PhysicObjectBallStatic(
     const ILogger &logger, 

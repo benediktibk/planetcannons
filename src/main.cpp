@@ -1,9 +1,9 @@
-#include "GameEngine.h"
-#include "Logger.h"
-#include "GraphicEngine.h"
-#include "PhysicEngine.h"
-#include "Clock.h"
-#include "GameObjectBall.h"
+#include "game/GameEngine.h"
+#include "utils/Logger.h"
+#include "graphics/GraphicEngine.h"
+#include "physics/PhysicEngine.h"
+#include "utils/Clock.h"
+#include "game/GameObjectBall.h"
 
 int main() {
 	const double ballWeight = 1e2;
@@ -29,7 +29,7 @@ int main() {
 	GameObjectBall ballThree(
 		logger,
 		std::make_tuple<double, double, double>(0, -0.7, 0),
-		std::make_tuple<double, double, double>(-1e-4, 0, 0),
+		std::make_tuple<double, double, double>(-1e-4, 1e-5, 0),
 		0.1,
 		ballWeight);
 

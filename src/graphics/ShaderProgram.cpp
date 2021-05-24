@@ -1,7 +1,7 @@
 #include "ShaderProgram.h"
 #include "VertexShader.h"
 #include "FragmentShader.h"
-#include "ILogger.h"
+#include "utils/ILogger.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

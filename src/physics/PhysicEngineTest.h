@@ -3,7 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 #include "PhysicEngine.h"
-#include "LoggerMock.h"
+#include "utils/LoggerMock.h"
 #include "PhysicObjectBallStatic.h"
 #include "PhysicObjectBall.h"
 

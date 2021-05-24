@@ -1,6 +1,6 @@
 #include "PhysicObjectBall.h"
-#include "ILogger.h"
-#include "LinearAlgebra.h"
+#include "utils/ILogger.h"
+#include "math/LinearAlgebra.h"
 #include <sstream>
 
 PhysicObjectBall::PhysicObjectBall(

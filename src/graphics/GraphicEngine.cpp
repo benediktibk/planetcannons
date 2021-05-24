@@ -1,5 +1,5 @@
 #include "GraphicEngine.h"
-#include "ILogger.h"
+#include "utils/ILogger.h"
 #include "IGraphicObject.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

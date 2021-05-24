@@ -1,18 +1,18 @@
-COMPILERFLAGS=-Wall -Wextra -Werror -MMD -std=c++20 -g -O0
+COMPILERFLAGS=-Wall -Wextra -Werror -MMD -std=c++20 -g -O0 -Isrc/
 COMPILERFLAGSTEST=$(COMPILERFLAGS)
 LINKERFLAGS=-g
 LIBRARIES=-lglfw -lGL -lGLEW
 LIBRARIESTEST=-lcppunit
 COMPILER=g++
 LINKER=g++
-SOURCEFILESTEST=$(wildcard *Test.cpp) $(wildcard *Mock.cpp)
-SOURCEFILESWITHTESTFILES=$(wildcard *.cpp)
-SOURCEFILES=$(filter-out $(SOURCEFILESTEST) testrunner.cpp main.cpp, $(SOURCEFILESWITHTESTFILES))
-OBJECTFILES=$(addprefix build/,$(patsubst %.cpp,%.o,$(SOURCEFILES)))
-OBJECTFILESTEST=$(addprefix build/,$(patsubst %.cpp,%.o,$(SOURCEFILESTEST)))
+SOURCEFILESTEST=$(shell find src/ -type f -name '*Test.cpp') $(shell find src/ -type f -name '*Mock.cpp')
+SOURCEFILESWITHTESTFILES=$(shell find src/ -type f -name '*.cpp')
+SOURCEFILES=$(filter-out $(SOURCEFILESTEST) src/testrunner.cpp src/main.cpp, $(SOURCEFILESWITHTESTFILES))
+OBJECTFILES=$(addprefix build/,$(patsubst %.cpp,%.o,$(SOURCEFILES:src/%=%)))
+OBJECTFILESTEST=$(addprefix build/,$(patsubst %.cpp,%.o,$(SOURCEFILESTEST:src/%=%)))
 DEPENDENCIES=$(OBJECTFILES:%.o=%.d) $(OBJECTFILESTEST:%.o=%.d) build/main.d build/testrunner.d
-SHADERFILES=$(wildcard *.vert) $(wildcard *.frag) $(wildcard *.tesc) $(wildcard *.tese) $(wildcard *.geom) $(wildcard *.comp)
-SHADERTARGETFILES=$(addprefix build/,$(SHADERFILES))
+SHADERFILES=$(shell find src/ -type f -name '*.vert') $(shell find src/ -type f -name '*.frag') $(shell find src/ -type f -name '*.tesc') $(shell find src/ -type f -name '*.tese') $(shell find src/ -type f -name '*.geom') $(shell find src/ -type f -name '*.comp')
+SHADERTARGETFILES=$(addprefix build/,$(SHADERFILES:src/graphics/%=%))
 SHADERCOMPILER=/usr/bin/glslangValidator
 
 all: build/testrunner build/planetcannons
@@ -27,32 +27,37 @@ tests: build/testrunner
 
 build/guard:
 	mkdir -p build
+	mkdir -p build/physics
+	mkdir -p build/game
+	mkdir -p build/graphics
+	mkdir -p build/math
+	mkdir -p build/utils
 	touch build/guard
 
-build/%.o: %.cpp build/guard Makefile
+build/%.o: src/%.cpp build/guard Makefile
 	$(COMPILER) -c $(COMPILERFLAGS) $< -o $@
 
-build/%.vert: %.vert build/guard Makefile
+build/%.vert: src/graphics/%.vert build/guard Makefile
 	$(SHADERCOMPILER) $<
 	cp $< $@
 
-build/%.frag: %.frag build/guard Makefile
+build/%.frag: src/graphics/%.frag build/guard Makefile
 	$(SHADERCOMPILER) $<
 	cp $< $@
 	
-build/%.tesc: %.tesc build/guard Makefile
+build/%.tesc: src/graphics/%.tesc build/guard Makefile
 	$(SHADERCOMPILER) $<
 	cp $< $@
 	
-build/%.tese: %.tese build/guard Makefile
+build/%.tese: src/graphics/%.tese build/guard Makefile
 	$(SHADERCOMPILER) $<
 	cp $< $@
 	
-build/%.geom: %.geom build/guard Makefile
+build/%.geom: src/graphics/%.geom build/guard Makefile
 	$(SHADERCOMPILER) $<
 	cp $< $@
 	
-build/%.comp: %.comp build/guard Makefile
+build/%.comp: src/graphics/%.comp build/guard Makefile
 	$(SHADERCOMPILER) $<
 	cp $< $@
 
