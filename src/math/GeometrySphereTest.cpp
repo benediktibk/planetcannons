@@ -17,3 +17,19 @@ void GeometrySphereTest::calculatePoint_anglePiAndPiHalf_correctPoint() {
 
     CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5, 7, 0.5), result, 1e-6));
 }
+
+void GeometrySphereTest::calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircle_northPole() {
+    GeometrySphere sphere(LinearAlgebraVector(5, 7, 1), 1);
+
+    auto result = sphere.calculatePointFromDistanceOnSurface(LinearAlgebraVector(6, 7, 1), M_PI/2, M_PI/2);
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5, 7, 2), result, 1e-6));
+}
+
+void GeometrySphereTest::calculatePointFromDistanceOnSurface_equatorAndQuarterCircleAndQuarterCircleAndHalfRadius_northPole() {
+    GeometrySphere sphere(LinearAlgebraVector(5, 7, 1), 0.5);
+
+    auto result = sphere.calculatePointFromDistanceOnSurface(LinearAlgebraVector(5.5, 7, 1), M_PI/4, M_PI/4);
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5, 7, 1.5), result, 1e-6));
+}

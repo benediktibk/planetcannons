@@ -44,7 +44,7 @@ void GameEngine::execute() {
     double theta = 0.0;
     unsigned int frames = 0;
     uint64_t lastTimeFpsOutputCreatedInMilliseconds = lastTimeInMilliseconds;
-    uint64_t lastTimePhysicUpdateInMilliseconds = lastTimeInMilliseconds;
+    //uint64_t lastTimePhysicUpdateInMilliseconds = lastTimeInMilliseconds;
     double correctionFactorSleepTime = 0.95;
     GeometrySphere sphere(LinearAlgebraVector(0, 0, 0), 1);
 
@@ -85,9 +85,9 @@ void GameEngine::execute() {
         m_graphicEngine.setCamera(cameraPosition, LinearAlgebraVector(0, 0, 0), M_PI/2, 1, 0.1, 100);
 
         uint64_t currentTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
-        double timeSpanForPhysicSimulation = (currentTimeInMilliseconds - lastTimePhysicUpdateInMilliseconds) / 1000.0;
-        m_physicEngine.execute(timeSpanForPhysicSimulation*m_timeFactorForPhysicEngine);
-        lastTimePhysicUpdateInMilliseconds = currentTimeInMilliseconds;
+        //double timeSpanForPhysicSimulation = (currentTimeInMilliseconds - lastTimePhysicUpdateInMilliseconds) / 1000.0;
+        //m_physicEngine.execute(timeSpanForPhysicSimulation*m_timeFactorForPhysicEngine);
+        //lastTimePhysicUpdateInMilliseconds = currentTimeInMilliseconds;
 
         for (auto object = m_objects.begin(); object != m_objects.end(); ++object) {
             (*object)->updateGraphics();

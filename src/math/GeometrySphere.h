@@ -8,6 +8,7 @@ class GeometrySphere {
         GeometrySphere(const LinearAlgebraVector &center, double radius);
 
         LinearAlgebraVector calculatePoint(double theta, double phi) const;
+        LinearAlgebraVector calculatePointFromDistanceOnSurface(const LinearAlgebraVector &startingPoint, double x, double y) const;
 
     private:
         LinearAlgebraVector m_center;
