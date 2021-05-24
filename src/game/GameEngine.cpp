@@ -4,6 +4,7 @@
 #include "utils/ILogger.h"
 #include "utils/Clock.h"
 #include "IGameObject.h"
+#include "math/LinearAlgebraVector.h"
 #include <GLFW/glfw3.h>
 #include <unistd.h>
 #include <cmath>
@@ -44,6 +45,8 @@ void GameEngine::execute() {
     uint64_t lastTimeFpsOutputCreatedInMilliseconds = lastTimeInMilliseconds;
     uint64_t lastTimePhysicUpdateInMilliseconds = lastTimeInMilliseconds;
     double correctionFactorSleepTime = 0.95;
+
+    m_graphicEngine.setCamera(LinearAlgebraVector(0, 0.2, 1), LinearAlgebraVector(0, 0, 0), M_PI/2, 1, 0.1, 100);
 
 	while (!m_graphicEngine.closeRequested()) {
         if (m_graphicEngine.keyPressed(GLFW_KEY_LEFT)) {
