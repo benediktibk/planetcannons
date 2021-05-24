@@ -4,6 +4,7 @@
 #include "physics/PhysicEngine.h"
 #include "utils/Clock.h"
 #include "game/GameObjectBall.h"
+#include "math/LinearAlgebraVector.h"
 
 int main() {
 	const double ballWeight = 1e2;
@@ -16,20 +17,20 @@ int main() {
 	GameEngine gameEngine(logger, GraphicEngine::get(logger), physicEngine, 60, clock, timeFactorForPhysicEngine);
 	GameObjectBall ballOne(
 		logger,
-		std::make_tuple<double, double, double>(-0.25, 0, 0),
-		std::make_tuple<double, double, double>(1e-6, -9e-5, 0),
+		LinearAlgebraVector(-0.25, 0, 0),
+		LinearAlgebraVector(1e-6, -9e-5, 0),
 		0.1,
 		ballWeight);
 	GameObjectBall ballTwo(
 		logger,
-		std::make_tuple<double, double, double>(0.25, 0, 0),
-		std::make_tuple<double, double, double>(0, 1e-4, 0),
+		LinearAlgebraVector(0.25, 0, 0),
+		LinearAlgebraVector(0, 1e-4, 0),
 		0.1,
 		ballWeight);
 	GameObjectBall ballThree(
 		logger,
-		std::make_tuple<double, double, double>(0, -0.7, 0),
-		std::make_tuple<double, double, double>(-1e-4, 1e-5, 0),
+		LinearAlgebraVector(0, -0.7, 0),
+		LinearAlgebraVector(-1e-4, 1e-5, 0),
 		0.1,
 		ballWeight);
 
