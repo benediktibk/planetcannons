@@ -25,6 +25,9 @@ clean:
 tests: build/testrunner
 	./build/testrunner
 
+run: build/planetcannons
+	cd build && ./planetcannons
+
 build/guard:
 	mkdir -p build
 	mkdir -p build/physics
