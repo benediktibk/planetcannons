@@ -26,7 +26,7 @@ void PhysicEngineTest::execute_personFallingToEarth_positionOfPersonIsCorrect() 
     m_engine->execute(2);
 
     auto position = m_person->getPosition();
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(6370100 - 20, std::get<0>(position), 1e-2);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(6370100 - 20, std::get<0>(position), 1);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<1>(position), 1e-6);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(0, std::get<2>(position), 1e-6);
 }
