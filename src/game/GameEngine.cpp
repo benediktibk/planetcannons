@@ -65,6 +65,22 @@ void GameEngine::execute() {
             theta += 0.01;
         }
 
+        if (phi < 0) {
+            phi += 2*M_PI;
+        }
+
+        if (phi > 2*M_PI) {
+            phi -= 2*M_PI;
+        }
+
+        if (theta < 0) {
+            theta += 2*M_PI;
+        }
+
+        if (theta > 2*M_PI) {
+            theta -= 2*M_PI;
+        }
+
         auto cameraPosition = sphere.calculatePoint(phi, theta);
         m_graphicEngine.setCamera(cameraPosition, LinearAlgebraVector(0, 0, 0), M_PI/2, 1, 0.1, 100);
 
