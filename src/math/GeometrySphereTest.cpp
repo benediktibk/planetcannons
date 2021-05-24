@@ -41,3 +41,19 @@ void GeometrySphereTest::calculatePointFromDistanceOnSurface_equatorAndQuarterCi
 
     CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5, 7, 0), result, 1e-6));
 }
+
+void GeometrySphereTest::calculatePointFromDistanceOnSurface_noMovementAtAll_samePoint() {
+    GeometrySphere sphere(LinearAlgebraVector(5, 7, 1), 0.5);
+
+    auto result = sphere.calculatePointFromDistanceOnSurface(LinearAlgebraVector(5.5, 7, 1), 0, 0);
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5.5, 7, 1), result, 1e-6));
+}
+
+void GeometrySphereTest::calculatePointFromDistanceOnSurface_twiceCompleteCircle_samePoint() {
+    GeometrySphere sphere(LinearAlgebraVector(5, 7, 1), 0.5);
+
+    auto result = sphere.calculatePointFromDistanceOnSurface(LinearAlgebraVector(5.5, 7, 1), 4*M_PI, 4*M_PI);
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(5.5, 7, 1), result, 1e-6));
+}

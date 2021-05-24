@@ -14,6 +14,9 @@ LinearAlgebraVector GeometrySphere::calculatePoint(double theta, double phi) con
 }
 
 LinearAlgebraVector GeometrySphere::calculatePointFromDistanceOnSurface(const LinearAlgebraVector &startingPoint, double x, double y) const {
+    double circumference = 2*m_radius*M_PI;
+    x = std::fmod(x, circumference);
+    y = std::fmod(y, circumference);
     auto startingPointInSphereCoordiantes = startingPoint - m_center;
     auto phiOld = acos(startingPointInSphereCoordiantes.getX()/m_radius);
 
