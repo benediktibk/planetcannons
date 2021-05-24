@@ -47,3 +47,7 @@ LinearAlgebraVector LinearAlgebraVector::operator-(const LinearAlgebraVector &rh
 LinearAlgebraVector LinearAlgebraVector::operator*(double rhs) const {
     return LinearAlgebraVector(m_x*rhs, m_y*rhs, m_z*rhs);
 }
+
+LinearAlgebraVector operator*(double a, const LinearAlgebraVector &b) {
+    return b*a;
+}

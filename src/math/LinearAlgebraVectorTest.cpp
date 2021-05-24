@@ -63,3 +63,11 @@ void LinearAlgebraVectorTest::operatorMultiplyWithScalar_validScalar_correctResu
 
     CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(10, 14, 2), result, 1e-6));
 }
+
+void LinearAlgebraVectorTest::operatorMultiplyWithScalarAsFirstOperator_validScalar_correctResult() {
+    LinearAlgebraVector a(5, 7, 1);
+
+    auto result = 2*a;
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(10, 14, 2), result, 1e-6));
+}

@@ -25,4 +25,6 @@ class LinearAlgebraVector {
         double m_z;
 };
 
+LinearAlgebraVector operator*(double a, const LinearAlgebraVector &b);
+
 #endif
