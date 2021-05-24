@@ -1,9 +1,16 @@
 #include "LinearAlgebraVector.h"
+#include <cmath>
 
 LinearAlgebraVector::LinearAlgebraVector(double x, double y, double z) :
     m_x(x),
     m_y(y),
     m_z(z) {
+}
+
+LinearAlgebraVector::LinearAlgebraVector(const LinearAlgebraVector &rhs) :
+    m_x(rhs.m_x),
+    m_y(rhs.m_y),
+    m_z(rhs.m_z) {
 }
 
 double LinearAlgebraVector::getX() const {
@@ -16,4 +23,27 @@ double LinearAlgebraVector::getY() const {
 
 double LinearAlgebraVector::getZ() const {
     return m_z;
+}
+
+double LinearAlgebraVector::norm() const {
+    return sqrt(m_x*m_x + m_y*m_y + m_z*m_z);
+}
+
+bool LinearAlgebraVector::equalsWithEpsilon(const LinearAlgebraVector &a, const LinearAlgebraVector &b, double epsilon) {
+    return 
+        fabs(a.getX() - b.getX()) < epsilon &&
+        fabs(a.getY() - b.getY()) < epsilon &&
+        fabs(a.getZ() - b.getZ()) < epsilon;
+}
+
+LinearAlgebraVector LinearAlgebraVector::operator+(const LinearAlgebraVector &rhs) const {
+    return LinearAlgebraVector(m_x + rhs.m_x, m_y + rhs.m_y, m_z + rhs.m_z);
+}
+
+LinearAlgebraVector LinearAlgebraVector::operator-(const LinearAlgebraVector &rhs) const {
+    return LinearAlgebraVector(m_x - rhs.m_x, m_y - rhs.m_y, m_z - rhs.m_z);
+}
+
+LinearAlgebraVector LinearAlgebraVector::operator*(double rhs) const {
+    return LinearAlgebraVector(m_x*rhs, m_y*rhs, m_z*rhs);
 }

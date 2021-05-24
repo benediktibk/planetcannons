@@ -19,3 +19,47 @@ void LinearAlgebraVectorTest::getZ_setTo1_1() {
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1, vector.getZ(), 1e-6);
 }
+
+void LinearAlgebraVectorTest::operatorEqualsWithEpsilon_sameContent_true() {
+    LinearAlgebraVector a(5, 7, 1);
+    LinearAlgebraVector b(5, 7, 1);
+
+    bool result = LinearAlgebraVector::equalsWithEpsilon(a, b, 1e-6);
+
+    CPPUNIT_ASSERT(result);
+}
+
+void LinearAlgebraVectorTest::operatorEqualsWithEpsilon_differentContent_false() {
+    LinearAlgebraVector a(5, 7, 1);
+    LinearAlgebraVector b(-1, 2, 4);
+
+    bool result = LinearAlgebraVector::equalsWithEpsilon(a, b, 1e-6);
+
+    CPPUNIT_ASSERT(!result);
+}
+
+void LinearAlgebraVectorTest::operatorAdd_validVector_correctResult() {
+    LinearAlgebraVector a(5, 7, 1);
+    LinearAlgebraVector b(-1, 2, 4);
+
+    auto result = a + b;
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(4, 9, 5), result, 1e-6));
+}
+
+void LinearAlgebraVectorTest::operatorSubtract_validVector_correctResult() {
+    LinearAlgebraVector a(5, 7, 1);
+    LinearAlgebraVector b(-1, 2, 4);
+
+    auto result = a - b;
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(6, 5, -3), result, 1e-6));
+}
+
+void LinearAlgebraVectorTest::operatorMultiplyWithScalar_validScalar_correctResult() {
+    LinearAlgebraVector a(5, 7, 1);
+
+    auto result = a*2;
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(10, 14, 2), result, 1e-6));
+}
