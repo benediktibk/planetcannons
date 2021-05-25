@@ -1,5 +1,5 @@
 #include "GameObjectBall.h"
-#include "graphics/GraphicObjectIcosahedron.h"
+#include "graphics/GraphicObjectCircleFilled.h"
 #include "physics/PhysicObjectBall.h"
 #include "utils/ILogger.h"
 #include "physics/IPhysicEngine.h"
@@ -8,7 +8,7 @@
 
 GameObjectBall::GameObjectBall(const ILogger &logger, IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, const LinearAlgebraVector &velocity, double radius, double mass) :
     m_logger(logger) {
-    m_graphicObject = new GraphicObjectIcosahedron(shaderFactory, centerPosition, radius);
+    m_graphicObject = new GraphicObjectCircleFilled(shaderFactory, centerPosition, radius, 32);
     m_physicObject = new PhysicObjectBall(logger, mass, radius, centerPosition, velocity);
 }
 
