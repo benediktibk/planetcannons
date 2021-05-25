@@ -5,10 +5,12 @@
 
 class ShaderProgram;
 class LinearAlgebraVector;
+class GeometryTriangle;
 
 class GraphicObjectTriangle : public IGraphicObject {
     public: 
         GraphicObjectTriangle(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const ShaderProgram &shaderProgram);
+        GraphicObjectTriangle(const GeometryTriangle &triangle, const ShaderProgram &shaderProgram);
         GraphicObjectTriangle(const ShaderProgram &shaderProgram);
         
         virtual ~GraphicObjectTriangle();

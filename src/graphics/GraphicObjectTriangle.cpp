@@ -1,6 +1,7 @@
 #include "GraphicObjectTriangle.h"
 #include "ShaderProgram.h"
 #include "math/LinearAlgebraVector.h"
+#include "math/GeometryTriangle.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -8,6 +9,12 @@
 GraphicObjectTriangle::GraphicObjectTriangle(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const ShaderProgram &shaderProgram) :
     m_shaderProgram(shaderProgram) {
     setPoints(pointOne, pointTwo, pointThree);
+    initialize();
+}
+
+GraphicObjectTriangle::GraphicObjectTriangle(const GeometryTriangle &triangle, const ShaderProgram &shaderProgram) :
+    m_shaderProgram(shaderProgram) {
+    setPoints(triangle.getPointOne(), triangle.getPointTwo(), triangle.getPointThree());
     initialize();
 }
 

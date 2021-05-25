@@ -14,41 +14,47 @@ LinearAlgebraVector GeometrySphere::calculatePoint(double theta, double phi) con
 }
 
 std::vector<GeometryTriangle> GeometrySphere::approximateWithTriangles(unsigned int searchDepth) const {
-    std::vector<GeometryTriangle> result;
+    std::vector<GeometryTriangle> start;
     const double a = sqrt(3)*m_radius;
     const double h = a * sin(M_PI/3);
 
-    result.push_back(GeometryTriangle(
+    start.push_back(GeometryTriangle(
         LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(0, 0, 1)));
 
-    result.push_back(GeometryTriangle(
+    start.push_back(GeometryTriangle(
         LinearAlgebraVector(0, 0, 1),
         LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(0, 1, 0)));
 
-    result.push_back(GeometryTriangle(
+    start.push_back(GeometryTriangle(
         LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(0, 0, 1),
         LinearAlgebraVector(0, 1, 0)));
 
-    result.push_back(GeometryTriangle(
+    start.push_back(GeometryTriangle(
         LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(0, 0, -1)));
 
-    result.push_back(GeometryTriangle(
+    start.push_back(GeometryTriangle(
         LinearAlgebraVector(0, 0, -1),
         LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(0, 1, 0)));
 
-    result.push_back(GeometryTriangle(
+    start.push_back(GeometryTriangle(
         LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
         LinearAlgebraVector(0, 0, -1),
         LinearAlgebraVector(0, 1, 0)));
 
-    return approximateWithTrianglesRecursive(result, searchDepth);
+    auto result = approximateWithTrianglesRecursive(start, searchDepth);
+
+    for (auto triangle = result.begin(); triangle != result.end(); ++triangle) {
+        triangle->shift(m_center);
+    }
+
+    return result;
 }
 
 std::vector<GeometryTriangle> GeometrySphere::approximateWithTrianglesRecursive(const std::vector<GeometryTriangle> &triangles, unsigned int searchDepth) const {

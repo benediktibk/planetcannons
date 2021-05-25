@@ -33,3 +33,9 @@ std::vector<GeometryTriangle> GeometryTriangle::calculateMidPointSubTriangles() 
     result.push_back(GeometryTriangle(midPointOne, midPointTwo, midPointThree));
     return result;
 }
+
+void GeometryTriangle::shift(const LinearAlgebraVector &offset) {
+    m_pointOne = m_pointOne + offset;
+    m_pointTwo = m_pointTwo + offset;
+    m_pointThree = m_pointThree + offset;
+}
