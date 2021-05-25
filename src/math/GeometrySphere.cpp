@@ -18,35 +18,33 @@ std::vector<GeometryTriangle> GeometrySphere::approximateWithTriangles(unsigned 
     const double a = sqrt(3)*m_radius;
     const double h = a * sin(M_PI/3);
 
+    // upper side
     start.push_back(GeometryTriangle(
-        LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(0, 0, 1)));
+        LinearAlgebraVector((-1)*a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(0, 0, m_radius)));
+    start.push_back(GeometryTriangle(
+        LinearAlgebraVector(0, 0, m_radius),
+        LinearAlgebraVector(a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(0, m_radius, 0)));
+    start.push_back(GeometryTriangle(
+        LinearAlgebraVector((-1)*a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(0, 0, m_radius),
+        LinearAlgebraVector(0, m_radius, 0)));
 
+    // lower side
     start.push_back(GeometryTriangle(
-        LinearAlgebraVector(0, 0, 1),
-        LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(0, 1, 0)));
-
+        LinearAlgebraVector((-1)*a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(0, 0, (-1)*m_radius)));
     start.push_back(GeometryTriangle(
-        LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(0, 0, 1),
-        LinearAlgebraVector(0, 1, 0)));
-
+        LinearAlgebraVector(0, 0, (-1)*m_radius),
+        LinearAlgebraVector(a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(0, m_radius, 0)));
     start.push_back(GeometryTriangle(
-        LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(0, 0, -1)));
-
-    start.push_back(GeometryTriangle(
-        LinearAlgebraVector(0, 0, -1),
-        LinearAlgebraVector(a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(0, 1, 0)));
-
-    start.push_back(GeometryTriangle(
-        LinearAlgebraVector((-1)*a/2, (-1)*(h - 1), 0),
-        LinearAlgebraVector(0, 0, -1),
-        LinearAlgebraVector(0, 1, 0)));
+        LinearAlgebraVector((-1)*a/2, (-1)*(h - m_radius), 0),
+        LinearAlgebraVector(0, 0, (-1)*m_radius),
+        LinearAlgebraVector(0, m_radius, 0)));
 
     auto result = approximateWithTrianglesRecursive(start, searchDepth);
 
