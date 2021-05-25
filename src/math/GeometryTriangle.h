@@ -11,6 +11,9 @@ class GeometryTriangle {
         const LinearAlgebraVector& getPointOne() const;
         const LinearAlgebraVector& getPointTwo() const;
         const LinearAlgebraVector& getPointThree() const;
+        void setPointOne(const LinearAlgebraVector& point);
+        void setPointTwo(const LinearAlgebraVector& point);
+        void setPointThree(const LinearAlgebraVector& point);
         std::vector<GeometryTriangle> calculateMidPointSubTriangles() const;
         void shift(const LinearAlgebraVector &offset);
 

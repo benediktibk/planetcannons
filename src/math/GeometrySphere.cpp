@@ -60,5 +60,26 @@ std::vector<GeometryTriangle> GeometrySphere::approximateWithTrianglesRecursive(
         return triangles;
     }
 
-    return triangles;
+    std::vector<GeometryTriangle> result;
+
+    for (auto triangle = triangles.begin(); triangle != triangles.end(); ++triangle) {
+        auto subTriangles = triangle->calculateMidPointSubTriangles();
+        result.insert(result.end(), subTriangles.begin(), subTriangles.end());
+    }
+
+    for (auto triangle = result.begin(); triangle != result.end(); ++triangle) {
+        LinearAlgebraVector pointOne = triangle->getPointOne();
+        LinearAlgebraVector pointTwo = triangle->getPointTwo();
+        LinearAlgebraVector pointThree = triangle->getPointThree();
+
+        pointOne = m_radius/pointOne.norm()*pointOne;
+        pointTwo = m_radius/pointTwo.norm()*pointTwo;
+        pointThree = m_radius/pointThree.norm()*pointThree;
+
+        triangle->setPointOne(pointOne);
+        triangle->setPointTwo(pointTwo);
+        triangle->setPointThree(pointThree);
+    }
+
+    return approximateWithTrianglesRecursive(result, searchDepth - 1);
 }

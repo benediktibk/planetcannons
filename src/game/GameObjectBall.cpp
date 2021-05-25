@@ -8,7 +8,7 @@
 
 GameObjectBall::GameObjectBall(const ILogger &logger, IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, const LinearAlgebraVector &velocity, double radius, double mass) :
     m_logger(logger) {
-    m_graphicObject = new GraphicObjectSphere(shaderFactory, centerPosition, radius, 10);
+    m_graphicObject = new GraphicObjectSphere(shaderFactory, centerPosition, radius, 3);
     m_physicObject = new PhysicObjectBall(logger, mass, radius, centerPosition, velocity);
 }
 

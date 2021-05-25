@@ -19,6 +19,18 @@ const LinearAlgebraVector& GeometryTriangle::getPointThree() const {
     return m_pointThree;
 }
 
+void GeometryTriangle::setPointOne(const LinearAlgebraVector& point) {
+    m_pointOne = point;
+}
+
+void GeometryTriangle::setPointTwo(const LinearAlgebraVector& point) {
+    m_pointTwo = point;
+}
+
+void GeometryTriangle::setPointThree(const LinearAlgebraVector& point) {
+    m_pointThree = point;
+}
+
 std::vector<GeometryTriangle> GeometryTriangle::calculateMidPointSubTriangles() const {
     std::vector<GeometryTriangle> result;
     GeometryStraight edgeOne(m_pointOne, m_pointTwo);
