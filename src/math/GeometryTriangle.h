@@ -2,6 +2,7 @@
 #define PLANETCANNONS_GEOMETRYTRIANGLE_H
 
 #include "LinearAlgebraVector.h"
+#include <vector>
 
 class GeometryTriangle {
     public:
@@ -10,6 +11,7 @@ class GeometryTriangle {
         const LinearAlgebraVector& getPointOne() const;
         const LinearAlgebraVector& getPointTwo() const;
         const LinearAlgebraVector& getPointThree() const;
+        std::vector<GeometryTriangle> calculateMidPointSubTriangles() const;
 
     private:
         LinearAlgebraVector m_pointOne;
