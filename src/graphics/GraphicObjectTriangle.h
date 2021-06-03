@@ -26,12 +26,9 @@ class GraphicObjectTriangle : public IGraphicObject {
         void updateNormal();
 
     private:
-        float m_coordinates[9];
-        float m_normal[3];
+        float m_coordinatesAndNormals[18];
         unsigned int m_vertexBuffer;
         unsigned int m_vertexArray;
-        unsigned int m_vertexNormalBuffer;
-        unsigned int m_vertexNormalArray;
         const ShaderProgram &m_shaderProgram;
 };
 
