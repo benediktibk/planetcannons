@@ -16,12 +16,8 @@ class GraphicObjectTriangle : public IGraphicObject {
         virtual ~GraphicObjectTriangle();
         virtual void update() const;
 
-        void setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree);
-        void setPointOne(const LinearAlgebraVector &point);
-        void setPointTwo(const LinearAlgebraVector &point);
-        void setPointThree(const LinearAlgebraVector &point);
-
     private:
+        void setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree);
         void initialize();
         void updateNormal();
 

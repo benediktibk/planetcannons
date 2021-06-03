@@ -61,27 +61,6 @@ void GraphicObjectTriangle::setPoints(const LinearAlgebraVector &pointOne, const
     updateNormal();
 }
 
-void GraphicObjectTriangle::setPointOne(const LinearAlgebraVector &point) {
-    m_coordinatesAndNormals[0] = point.getX();
-    m_coordinatesAndNormals[1] = point.getY();
-    m_coordinatesAndNormals[2] = point.getZ();
-    updateNormal();
-}
-
-void GraphicObjectTriangle::setPointTwo(const LinearAlgebraVector &point) {
-    m_coordinatesAndNormals[6] = point.getX();
-    m_coordinatesAndNormals[7] = point.getY();
-    m_coordinatesAndNormals[8] = point.getZ();
-    updateNormal();
-}
-
-void GraphicObjectTriangle::setPointThree(const LinearAlgebraVector &point) {
-    m_coordinatesAndNormals[12] = point.getX();
-    m_coordinatesAndNormals[13] = point.getY();
-    m_coordinatesAndNormals[14] = point.getZ();
-    updateNormal();
-}
-
 void GraphicObjectTriangle::updateNormal() {
     LinearAlgebraVector pointOne(m_coordinatesAndNormals[0], m_coordinatesAndNormals[1], m_coordinatesAndNormals[2]);
     LinearAlgebraVector pointTwo(m_coordinatesAndNormals[6], m_coordinatesAndNormals[7], m_coordinatesAndNormals[8]);
