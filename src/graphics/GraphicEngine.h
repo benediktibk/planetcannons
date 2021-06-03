@@ -20,6 +20,7 @@ class GraphicEngine : public IGraphicEngine {
         virtual bool keyPressed(unsigned int keyType);
         virtual IShaderFactory& getShaderFactory();
         virtual void setCamera(const LinearAlgebraVector &position, const LinearAlgebraVector &target, double fieldOfView, double aspectRatio, double nearPlane, double farPlane);
+        virtual void configureLighting(const LinearAlgebraVector &lightPosition, float ambientLightStrength, float specularStrength, float specularExponent);
 
     private:
         static void glfwErrorCallback(int error, const char* description);

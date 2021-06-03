@@ -18,10 +18,12 @@ class ShaderFactory : public IShaderFactory {
         virtual void unregisterVertexShader(VertexShader &shader);
         virtual void unregisterFragmentShader(FragmentShader &shader);
         virtual const std::vector<TransformationVertexShader*>& getAllTransformationVertexShader() const;
+        virtual const std::vector<FixedColorFragmentShader*>& getAllFixedColorFragmentShader() const;
 
     private:
         const ILogger &m_logger;
         std::vector<TransformationVertexShader*> m_transformationVertexShader;
+        std::vector<FixedColorFragmentShader*> m_fixedColorFragmentShader;
         std::vector<VertexShader*> m_vertexShader;
         std::vector<FragmentShader*> m_fragmentShader;
 };

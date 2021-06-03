@@ -36,6 +36,8 @@ void GameEngine::add(IGameObject &object) {
 }
 
 void GameEngine::execute() {
+    m_graphicEngine.configureLighting(LinearAlgebraVector(0, 0, 1), 0.2, 0.5, 32);
+
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();
     double minimumFrameLength = 1.0/m_maximumFramesPerSecond;

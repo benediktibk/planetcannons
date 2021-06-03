@@ -14,6 +14,7 @@ class IGraphicEngine {
         virtual bool keyPressed(unsigned int keyType) = 0;
         virtual IShaderFactory& getShaderFactory() = 0;
         virtual void setCamera(const LinearAlgebraVector &position, const LinearAlgebraVector &target, double fieldOfView, double aspectRatio, double nearPlane, double farPlane) = 0;
+        virtual void configureLighting(const LinearAlgebraVector &lightPosition, float ambientLightStrength, float specularStrength, float specularExponent) = 0;
 
         IGraphicEngine() {};
         ~IGraphicEngine() {};

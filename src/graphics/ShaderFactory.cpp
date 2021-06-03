@@ -14,7 +14,9 @@ TransformationVertexShader* ShaderFactory::createTransformationVertexShader() {
 }
 
 FixedColorFragmentShader* ShaderFactory::createFixedColorFragmentShader(const std::tuple<double, double, double, double> &color) {
-    return new FixedColorFragmentShader(m_logger, color, *this);
+    auto shader = new FixedColorFragmentShader(m_logger, color, *this);
+    m_fixedColorFragmentShader.push_back(shader);
+    return shader;
 }
 
 ShaderProgram* ShaderFactory::createShaderProgram(VertexShader &vertexShader, FragmentShader &fragmentShader) {
@@ -36,8 +38,13 @@ void ShaderFactory::unregisterVertexShader(VertexShader &shader) {
 
 void ShaderFactory::unregisterFragmentShader(FragmentShader &shader) {
     std::remove(m_fragmentShader.begin(), m_fragmentShader.end(), &shader);
+    std::remove(m_fixedColorFragmentShader.begin(), m_fixedColorFragmentShader.end(), &shader);
 }
 
 const std::vector<TransformationVertexShader*>& ShaderFactory::getAllTransformationVertexShader() const {
     return m_transformationVertexShader;
+}
+
+const std::vector<FixedColorFragmentShader*>& ShaderFactory::getAllFixedColorFragmentShader() const {
+    return m_fixedColorFragmentShader;
 }
