@@ -53,7 +53,7 @@ void GraphicObjectTriangle::initialize() {
     glGenBuffers(1, &m_vertexNormalBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexNormalBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_normal), m_normal, GL_STREAM_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
     glBindVertexArray(0);
 }

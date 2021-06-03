@@ -1,6 +1,7 @@
 #version 400
 
 out vec4 frag_colour;
+in vec3 param_normal;
 uniform vec4 inputColor;
 uniform float ambientLight;
 uniform vec3 lightPosition;
