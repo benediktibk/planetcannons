@@ -9,15 +9,14 @@ class GeometryTriangle;
 
 class GraphicObjectTriangle : public IGraphicObject {
     public: 
-        GraphicObjectTriangle(const GeometryTriangle &triangle, const ShaderProgram &shaderProgram);
+        GraphicObjectTriangle(const GeometryTriangle &triangle, const ShaderProgram &shaderProgram, const LinearAlgebraVector &directionOfNormal);
         
         virtual ~GraphicObjectTriangle();
         virtual void update() const;
 
     private:
-        void setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree);
-        void initialize();
-        void updateNormal();
+        void setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const LinearAlgebraVector &directionOfNormal);
+        void initializeVertices();
 
     private:
         float m_coordinatesAndNormals[18];

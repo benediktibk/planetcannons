@@ -6,10 +6,10 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-GraphicObjectTriangle::GraphicObjectTriangle(const GeometryTriangle &triangle, const ShaderProgram &shaderProgram) :
+GraphicObjectTriangle::GraphicObjectTriangle(const GeometryTriangle &triangle, const ShaderProgram &shaderProgram, const LinearAlgebraVector &directionOfNormal) :
     m_shaderProgram(shaderProgram) {
-    setPoints(triangle.getPointOne(), triangle.getPointTwo(), triangle.getPointThree());
-    initialize();
+    setPoints(triangle.getPointOne(), triangle.getPointTwo(), triangle.getPointThree(), directionOfNormal);
+    initializeVertices();
 }
 
 GraphicObjectTriangle::~GraphicObjectTriangle() {
@@ -17,7 +17,7 @@ GraphicObjectTriangle::~GraphicObjectTriangle() {
 	glDeleteVertexArrays(1, &m_vertexArray);
 }
 
-void GraphicObjectTriangle::initialize() {
+void GraphicObjectTriangle::initializeVertices() {
     glGenVertexArrays(1, &m_vertexArray);
     glBindVertexArray(m_vertexArray);
     glGenBuffers(1, &m_vertexBuffer);
@@ -33,7 +33,7 @@ void GraphicObjectTriangle::initialize() {
     glBindVertexArray(0);
 }
 
-void GraphicObjectTriangle::setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree) {
+void GraphicObjectTriangle::setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const LinearAlgebraVector &directionOfNormal) {
     m_coordinatesAndNormals[0] = pointOne.getX();
     m_coordinatesAndNormals[1] = pointOne.getY();
     m_coordinatesAndNormals[2] = pointOne.getZ();
@@ -42,20 +42,19 @@ void GraphicObjectTriangle::setPoints(const LinearAlgebraVector &pointOne, const
     m_coordinatesAndNormals[8] = pointTwo.getZ();
     m_coordinatesAndNormals[12] = pointThree.getX();
     m_coordinatesAndNormals[13] = pointThree.getY();
-    m_coordinatesAndNormals[14] = pointThree.getZ();
-    updateNormal();
-}
-
-void GraphicObjectTriangle::updateNormal() {
-    LinearAlgebraVector pointOne(m_coordinatesAndNormals[0], m_coordinatesAndNormals[1], m_coordinatesAndNormals[2]);
-    LinearAlgebraVector pointTwo(m_coordinatesAndNormals[6], m_coordinatesAndNormals[7], m_coordinatesAndNormals[8]);
-    LinearAlgebraVector pointThree(m_coordinatesAndNormals[12], m_coordinatesAndNormals[13], m_coordinatesAndNormals[14]);
-
+    m_coordinatesAndNormals[14] = pointThree.getZ();    
+    
     auto sideOne = pointTwo - pointOne;
     auto sideTwo = pointThree - pointOne;
     sideOne = sideOne / sideOne.norm();
     sideTwo = sideTwo / sideTwo.norm();
     auto normal = LinearAlgebraVector::crossProduct(sideOne, sideTwo);
+    auto direction = LinearAlgebraVector::dotProduct(normal, directionOfNormal);
+
+    if (direction < 0) {
+        normal = normal * (-1);
+    }
+
     m_coordinatesAndNormals[3] = normal.getX();
     m_coordinatesAndNormals[4] = normal.getY();
     m_coordinatesAndNormals[5] = normal.getZ();

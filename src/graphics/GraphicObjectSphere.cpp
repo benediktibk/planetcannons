@@ -24,7 +24,7 @@ GraphicObjectSphere::GraphicObjectSphere(IShaderFactory &shaderFactory, const Li
     auto triangles = sphere.approximateWithTriangles(approximationDepth);
 
     for (auto triangle = triangles.begin(); triangle != triangles.end(); ++triangle) {
-        m_triangles.push_back(new GraphicObjectTriangle(*triangle, *m_shaderProgram));
+        m_triangles.push_back(new GraphicObjectTriangle(*triangle, *m_shaderProgram, triangle->getPointOne()));
     }
 
     setCenterPosition(centerPosition);
