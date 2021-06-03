@@ -6,24 +6,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-GraphicObjectTriangle::GraphicObjectTriangle(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree, const ShaderProgram &shaderProgram) :
-    m_shaderProgram(shaderProgram) {
-    setPoints(pointOne, pointTwo, pointThree);
-    initialize();
-}
-
 GraphicObjectTriangle::GraphicObjectTriangle(const GeometryTriangle &triangle, const ShaderProgram &shaderProgram) :
     m_shaderProgram(shaderProgram) {
     setPoints(triangle.getPointOne(), triangle.getPointTwo(), triangle.getPointThree());
-    initialize();
-}
-
-GraphicObjectTriangle::GraphicObjectTriangle(const ShaderProgram &shaderProgram) :
-    m_shaderProgram(shaderProgram) {
-    for (size_t i = 0; i < 18; ++i) {
-        m_coordinatesAndNormals[i] = 0;
-    }
-
     initialize();
 }
 
