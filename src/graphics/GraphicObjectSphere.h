@@ -14,7 +14,9 @@ class LinearAlgebraVector;
 
 class GraphicObjectSphere : public IGraphicObject {
     public: 
-        GraphicObjectSphere(IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius, unsigned int approximationDepth);
+        GraphicObjectSphere(
+            IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition,
+            double radius, unsigned int approximationDepth, const std::tuple<float, float, float, float> &color);
         virtual ~GraphicObjectSphere();
         virtual void update() const;
         void setCenterPosition(const LinearAlgebraVector &centerPosition);

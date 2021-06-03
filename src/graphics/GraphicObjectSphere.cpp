@@ -13,11 +13,13 @@
 #include <cmath>
 #include <vector>
 
-GraphicObjectSphere::GraphicObjectSphere(IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius, unsigned int approximationDepth) :
+GraphicObjectSphere::GraphicObjectSphere(
+    IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, 
+    double radius, unsigned int approximationDepth, const std::tuple<float, float, float, float> &color) :
     m_radius(radius),
     m_centerPosition(centerPosition) {
     m_vertexShader = shaderFactory.createTransformationVertexShader();
-    m_fragmentShader = shaderFactory.createFixedColorFragmentShader(std::make_tuple<float, float, float, float>(0, 1, 0.5, 1.0));
+    m_fragmentShader = shaderFactory.createFixedColorFragmentShader(color);
     m_shaderProgram = shaderFactory.createShaderProgram(*m_vertexShader, *m_fragmentShader);
 
     GeometrySphere sphere(LinearAlgebraVector(0, 0, 0), m_radius);

@@ -6,7 +6,7 @@
 
 GameObjectLight::GameObjectLight(const ILogger &logger, IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, double radius) :
     m_logger(logger) {
-    m_graphicObject = new GraphicObjectSphere(shaderFactory, centerPosition, radius, 3);
+    m_graphicObject = new GraphicObjectSphere(shaderFactory, centerPosition, radius, 3, std::make_tuple<float, float, float, float>(1, 1, 1, 1));
 }
 
 GameObjectLight::~GameObjectLight() {
