@@ -8,6 +8,7 @@ class IGraphicEngine;
 class IPhysicEngine;
 class Clock;
 class IGameObject;
+class GameObjectLight;
 
 class GameEngine {
     public: 
@@ -24,6 +25,7 @@ class GameEngine {
         Clock &m_clock;
         std::vector<IGameObject*> m_objects;
         double m_timeFactorForPhysicEngine;
+        GameObjectLight *m_light;
 };
 
 #endif

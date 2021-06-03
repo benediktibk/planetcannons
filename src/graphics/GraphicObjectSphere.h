@@ -18,6 +18,7 @@ class GraphicObjectSphere : public IGraphicObject {
         virtual ~GraphicObjectSphere();
         virtual void update() const;
         void setCenterPosition(const LinearAlgebraVector &centerPosition);
+        const LinearAlgebraVector& getCenterPosition() const;
 
     private:
         double m_radius;

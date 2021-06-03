@@ -4,6 +4,7 @@
 #include "utils/ILogger.h"
 #include "utils/Clock.h"
 #include "IGameObject.h"
+#include "GameObjectLight.h"
 #include "math/LinearAlgebraVector.h"
 #include "math/GeometrySphere.h"
 #include <GLFW/glfw3.h>
@@ -17,7 +18,15 @@ GameEngine::GameEngine(const ILogger &logger, IGraphicEngine &graphicEngine, IPh
     m_physicEngine(physicEngine),
     m_maximumFramesPerSecond(maximumFramesPerSecond),
     m_clock(clock),
-    m_timeFactorForPhysicEngine(timeFactorForPhysicEngine) {    
+    m_timeFactorForPhysicEngine(timeFactorForPhysicEngine) {   
+
+    m_light = new GameObjectLight(
+		logger,
+		graphicEngine.getShaderFactory(),
+		LinearAlgebraVector(0, 0, 0.5),
+		0.01);
+        
+	add(*m_light);
 }
 
 GameEngine::~GameEngine() {
@@ -27,6 +36,9 @@ GameEngine::~GameEngine() {
     }
 
     m_objects.clear();
+
+    delete m_light;
+    m_light = 0;
 }
 
 void GameEngine::add(IGameObject &object) {
@@ -36,7 +48,7 @@ void GameEngine::add(IGameObject &object) {
 }
 
 void GameEngine::execute() {
-    m_graphicEngine.configureLighting(LinearAlgebraVector(0, 0, 1), 0.2, 0.5, 32);
+    m_graphicEngine.configureLighting(m_light->getPosition(), 0.2, 0.5, 32);
 
     m_clock.startMeasurement();
     uint64_t lastTimeInMilliseconds = m_clock.getMillisecondsSinceStart();

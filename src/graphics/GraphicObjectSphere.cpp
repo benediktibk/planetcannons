@@ -55,6 +55,10 @@ void GraphicObjectSphere::setCenterPosition(const LinearAlgebraVector &centerPos
     m_vertexShader->setTransformationLocalToWorld(transformation);
 }
 
+const LinearAlgebraVector& GraphicObjectSphere::getCenterPosition() const {
+    return m_centerPosition;
+}
+
 void GraphicObjectSphere::update() const {
     for (auto triangle = m_triangles.begin(); triangle != m_triangles.end(); ++triangle) {
         (*triangle)->update();
