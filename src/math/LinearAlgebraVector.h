@@ -15,6 +15,7 @@ class LinearAlgebraVector {
 
         static bool equalsWithEpsilon(const LinearAlgebraVector &a, const LinearAlgebraVector &b, double epsilon);
         static LinearAlgebraVector crossProduct(const LinearAlgebraVector &a, const LinearAlgebraVector &b);
+        static double dotProduct(const LinearAlgebraVector &a, const LinearAlgebraVector &b);
 
         LinearAlgebraVector operator+(const LinearAlgebraVector &rhs) const;
         LinearAlgebraVector operator-(const LinearAlgebraVector &rhs) const;

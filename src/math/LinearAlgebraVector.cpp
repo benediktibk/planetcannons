@@ -44,6 +44,10 @@ LinearAlgebraVector LinearAlgebraVector::crossProduct(const LinearAlgebraVector 
     );
 }
 
+double LinearAlgebraVector::dotProduct(const LinearAlgebraVector &a, const LinearAlgebraVector &b) {
+    return a.getX()*b.getX() + a.getY()*b.getY() + a.getZ()*b.getZ();
+}
+
 LinearAlgebraVector LinearAlgebraVector::operator+(const LinearAlgebraVector &rhs) const {
     return LinearAlgebraVector(m_x + rhs.m_x, m_y + rhs.m_y, m_z + rhs.m_z);
 }

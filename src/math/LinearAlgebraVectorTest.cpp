@@ -99,3 +99,12 @@ void LinearAlgebraVectorTest::crossProduct_twoValidVectors_correctResult() {
 
     CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(-30, -22, 42), result, 1e-6));
 }
+
+void LinearAlgebraVectorTest::dotProduct_twoValidVectors_correctResult() {
+    LinearAlgebraVector a(1, 3, -5);
+    LinearAlgebraVector b(4, -2, -1);
+
+    auto result = LinearAlgebraVector::dotProduct(a, b);
+
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3, result, 1e-6);
+}
