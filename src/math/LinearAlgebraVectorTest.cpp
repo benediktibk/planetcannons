@@ -81,3 +81,21 @@ void LinearAlgebraVectorTest::operatorCastToTuple_validVector_correctResult() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(7, std::get<1>(result), 1e-6);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1, std::get<2>(result), 1e-6);
 }
+
+void LinearAlgebraVectorTest::crossProduct_yAxisAndZAxis_xAxis() {
+    LinearAlgebraVector a(0, 1, 0);
+    LinearAlgebraVector b(0, 0, 1);
+
+    auto result = LinearAlgebraVector::crossProduct(a, b);
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(1, 0, 0), result, 1e-6));
+}
+
+void LinearAlgebraVectorTest::crossProduct_twoValidVectors_correctResult() {
+    LinearAlgebraVector a(5, -3, 2);
+    LinearAlgebraVector b(-1, 9, 4);
+
+    auto result = LinearAlgebraVector::crossProduct(a, b);
+
+    CPPUNIT_ASSERT(LinearAlgebraVector::equalsWithEpsilon(LinearAlgebraVector(-30, -22, 42), result, 1e-6));
+}

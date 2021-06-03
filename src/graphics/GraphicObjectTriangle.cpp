@@ -23,6 +23,10 @@ GraphicObjectTriangle::GraphicObjectTriangle(const ShaderProgram &shaderProgram)
     for (size_t i = 0; i < 9; ++i) {
         m_coordinates[i] = 0;
     }
+    
+    for (size_t i = 0; i < 3; ++i) {
+        m_normal[i] = 0;
+    }
 
     initialize();
 }
@@ -30,6 +34,8 @@ GraphicObjectTriangle::GraphicObjectTriangle(const ShaderProgram &shaderProgram)
 GraphicObjectTriangle::~GraphicObjectTriangle() {
     glDeleteBuffers(1, &m_vertexBuffer);
 	glDeleteVertexArrays(1, &m_vertexArray);
+    glDeleteBuffers(1, &m_vertexNormalBuffer);
+	glDeleteVertexArrays(1, &m_vertexNormalArray);
 }
 
 void GraphicObjectTriangle::initialize() {
@@ -40,6 +46,16 @@ void GraphicObjectTriangle::initialize() {
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(m_coordinates), m_coordinates, GL_STREAM_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    glGenVertexArrays(1, &m_vertexNormalArray);
+    glBindVertexArray(m_vertexNormalArray);
+    glEnableVertexAttribArray(0);
+    glGenBuffers(1, &m_vertexNormalBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexNormalBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_normal), m_normal, GL_STREAM_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    glBindVertexArray(0);
 }
 
 void GraphicObjectTriangle::setPoints(const LinearAlgebraVector &pointOne, const LinearAlgebraVector &pointTwo, const LinearAlgebraVector &pointThree) {
@@ -52,29 +68,52 @@ void GraphicObjectTriangle::setPoints(const LinearAlgebraVector &pointOne, const
     m_coordinates[6] = pointThree.getX();
     m_coordinates[7] = pointThree.getY();
     m_coordinates[8] = pointThree.getZ();
+    updateNormal();
 }
 
 void GraphicObjectTriangle::setPointOne(const LinearAlgebraVector &point) {
     m_coordinates[0] = point.getX();
     m_coordinates[1] = point.getY();
     m_coordinates[2] = point.getZ();
+    updateNormal();
 }
 
 void GraphicObjectTriangle::setPointTwo(const LinearAlgebraVector &point) {
     m_coordinates[3] = point.getX();
     m_coordinates[4] = point.getY();
     m_coordinates[5] = point.getZ();
+    updateNormal();
 }
 
 void GraphicObjectTriangle::setPointThree(const LinearAlgebraVector &point) {
     m_coordinates[6] = point.getX();
     m_coordinates[7] = point.getY();
     m_coordinates[8] = point.getZ();
+    updateNormal();
+}
+
+void GraphicObjectTriangle::updateNormal() {
+    LinearAlgebraVector pointOne(m_coordinates[0], m_coordinates[1], m_coordinates[2]);
+    LinearAlgebraVector pointTwo(m_coordinates[3], m_coordinates[4], m_coordinates[5]);
+    LinearAlgebraVector pointThree(m_coordinates[6], m_coordinates[7], m_coordinates[8]);
+
+    auto sideOne = pointTwo - pointOne;
+    auto sideTwo = pointThree - pointOne;
+    sideOne = sideOne / sideOne.norm();
+    sideTwo = sideTwo / sideTwo.norm();
+    auto normal = LinearAlgebraVector::crossProduct(sideOne, sideTwo);
+    m_normal[0] = normal.getX();
+    m_normal[1] = normal.getY();
+    m_normal[2] = normal.getZ();
 }
 
 void GraphicObjectTriangle::update() const {
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexNormalBuffer);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_normal), m_normal);
+
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_coordinates), m_coordinates);
+
     glBindVertexArray(m_vertexArray);
     m_shaderProgram.use();
     glDrawArrays(GL_TRIANGLES, 0, 3);

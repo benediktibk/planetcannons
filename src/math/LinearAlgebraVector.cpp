@@ -36,6 +36,14 @@ bool LinearAlgebraVector::equalsWithEpsilon(const LinearAlgebraVector &a, const 
         fabs(a.getZ() - b.getZ()) < epsilon;
 }
 
+LinearAlgebraVector LinearAlgebraVector::crossProduct(const LinearAlgebraVector &a, const LinearAlgebraVector &b) {
+    return LinearAlgebraVector(
+        a.getY()*b.getZ() - a.getZ()*b.getY(),
+        a.getZ()*b.getX() - a.getX()*b.getZ(),
+        a.getX()*b.getY() - a.getY()*b.getX()
+    );
+}
+
 LinearAlgebraVector LinearAlgebraVector::operator+(const LinearAlgebraVector &rhs) const {
     return LinearAlgebraVector(m_x + rhs.m_x, m_y + rhs.m_y, m_z + rhs.m_z);
 }
@@ -46,6 +54,10 @@ LinearAlgebraVector LinearAlgebraVector::operator-(const LinearAlgebraVector &rh
 
 LinearAlgebraVector LinearAlgebraVector::operator*(double rhs) const {
     return LinearAlgebraVector(m_x*rhs, m_y*rhs, m_z*rhs);
+}
+
+LinearAlgebraVector LinearAlgebraVector::operator/(double rhs) const {
+    return LinearAlgebraVector(m_x/rhs, m_y/rhs, m_z/rhs);
 }
 
 LinearAlgebraVector operator*(double a, const LinearAlgebraVector &b) {
