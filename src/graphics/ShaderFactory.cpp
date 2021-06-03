@@ -38,9 +38,6 @@ void ShaderFactory::unregisterFragmentShader(FragmentShader &shader) {
     std::remove(m_fragmentShader.begin(), m_fragmentShader.end(), &shader);
 }
 
-void ShaderFactory::updateGlobalTransformations(const glm::mat4 &transformationWorldToView, const glm::mat4 &transformationViewToPerspective) {
-    for (auto shader = m_transformationVertexShader.begin(); shader != m_transformationVertexShader.end(); ++shader) {
-        (*shader)->setTransformationWorldToView(transformationWorldToView);
-        (*shader)->setTransformationViewToPerspective(transformationViewToPerspective);
-    }
+const std::vector<TransformationVertexShader*>& ShaderFactory::getAllTransformationVertexShader() const {
+    return m_transformationVertexShader;
 }

@@ -3,9 +3,11 @@
 
 #include <tuple>
 #include <glm/glm.hpp>
+#include <vector>
 
 class VertexShader;
 class FragmentShader;
+class TransformationVertexShader;
 
 class IShaderRegistry {
     public:
@@ -16,7 +18,7 @@ class IShaderRegistry {
         virtual void registerFragmentShader(FragmentShader &shader) = 0;
         virtual void unregisterVertexShader(VertexShader &shader) = 0;
         virtual void unregisterFragmentShader(FragmentShader &shader) = 0;
-        virtual void updateGlobalTransformations(const glm::mat4 &transformationWorldToView, const glm::mat4 &transformationViewToPerspective) = 0;
+        virtual const std::vector<TransformationVertexShader*>& getAllTransformationVertexShader() const = 0;
 
     private:
         IShaderRegistry(const IShaderRegistry &) {}

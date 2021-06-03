@@ -17,7 +17,7 @@ class ShaderFactory : public IShaderFactory {
         virtual void registerFragmentShader(FragmentShader &shader);
         virtual void unregisterVertexShader(VertexShader &shader);
         virtual void unregisterFragmentShader(FragmentShader &shader);
-        virtual void updateGlobalTransformations(const glm::mat4 &transformationWorldToView, const glm::mat4 &transformationViewToPerspective);
+        virtual const std::vector<TransformationVertexShader*>& getAllTransformationVertexShader() const;
 
     private:
         const ILogger &m_logger;

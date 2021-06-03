@@ -3,10 +3,11 @@
 #include "IGraphicObject.h"
 #include "ShaderFactory.h"
 #include "math/LinearAlgebraVector.h"
+#include "TransformationVertexShader.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include "glm/gtc/matrix_transform.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 #include <sstream>
 #include <cstring>
 
@@ -207,5 +208,11 @@ void GraphicEngine::setCamera(const LinearAlgebraVector &position, const LinearA
             cameraTarget, 
             worldSpaceY);
     glm::mat4 transformationViewToPerspective = glm::perspective(fieldOfView, aspectRatio, nearPlane, farPlane);
-    m_shaderFactory->updateGlobalTransformations(transformationWorldToView, transformationViewToPerspective);
+
+    auto transformationVertexShader = m_shaderFactory->getAllTransformationVertexShader();
+
+    for (auto shader = transformationVertexShader.begin(); shader != transformationVertexShader.end(); ++shader) {
+        (*shader)->setTransformationWorldToView(transformationWorldToView);
+        (*shader)->setTransformationViewToPerspective(transformationViewToPerspective);
+    }
 }
