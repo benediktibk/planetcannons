@@ -16,6 +16,7 @@ class GameEngine {
         ~GameEngine();
         void execute();
         void add(IGameObject &object);
+        void remove(IGameObject &object);
 
     private:
         const ILogger &m_logger;

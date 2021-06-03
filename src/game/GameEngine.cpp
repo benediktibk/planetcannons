@@ -47,6 +47,12 @@ void GameEngine::add(IGameObject &object) {
     object.addToPhysicEngine(m_physicEngine);
 }
 
+void GameEngine::remove(IGameObject &object) {
+    object.removeFromGraphicEngine(m_graphicEngine);
+    object.removeFromPhysicEngine(m_physicEngine);
+    std::remove(m_objects.begin(), m_objects.end(), &object);
+}
+
 void GameEngine::execute() {
     m_graphicEngine.configureLighting(m_light->getPosition(), 0.2, 0.5, 32);
 

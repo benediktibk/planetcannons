@@ -42,5 +42,10 @@ int main() {
 	gameEngine.add(ballOne);
 	gameEngine.add(ballTwo);
 	gameEngine.add(ballThree);
+	
 	gameEngine.execute();
+
+	gameEngine.remove(ballOne);
+	gameEngine.remove(ballTwo);
+	gameEngine.remove(ballThree);
 }
