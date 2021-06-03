@@ -34,9 +34,9 @@ void FixedColorFragmentShader::updateUniformsInternal(unsigned int shaderProgram
     unsigned int ambientLightLocation = glGetUniformLocation(shaderProgramId, "ambientLight");    
     glUniform1f(ambientLightLocation, m_ambientLight);
     unsigned int lightPositionLocation = glGetUniformLocation(shaderProgramId, "lightPosition");    
-    glUniform4fv(lightPositionLocation, 1, lightPositionValues);
+    glUniform3fv(lightPositionLocation, 1, lightPositionValues);
     unsigned int cameraPositionLocation = glGetUniformLocation(shaderProgramId, "cameraPosition");    
-    glUniform4fv(cameraPositionLocation, 1, cameraPositionValues);
+    glUniform3fv(cameraPositionLocation, 1, cameraPositionValues);
     unsigned int specularStrengthLocation = glGetUniformLocation(shaderProgramId, "specularStrength");    
     glUniform1f(specularStrengthLocation, m_specularStrength);
     unsigned int specularExponentLocation = glGetUniformLocation(shaderProgramId, "specularExponent");    
