@@ -5,6 +5,7 @@
 
 class ShaderProgram;
 class TransformationVertexShader;
+class FixedColorWithLightingFragmentShader;
 class FixedColorFragmentShader;
 
 class IShaderFactory : public IShaderRegistry {
@@ -13,6 +14,7 @@ class IShaderFactory : public IShaderRegistry {
         virtual ~IShaderFactory() { }
 
         virtual TransformationVertexShader* createTransformationVertexShader() = 0;
+        virtual FixedColorWithLightingFragmentShader* createFixedColorWithLightingFragmentShader(const std::tuple<double, double, double, double> &color) = 0;
         virtual FixedColorFragmentShader* createFixedColorFragmentShader(const std::tuple<double, double, double, double> &color) = 0;
         virtual ShaderProgram* createShaderProgram(VertexShader &vertexShader, FragmentShader &fragmentShader) = 0;
 

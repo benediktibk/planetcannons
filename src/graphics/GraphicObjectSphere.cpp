@@ -3,6 +3,7 @@
 #include "GraphicObjectTriangle.h"
 #include "TransformationVertexShader.h"
 #include "FixedColorFragmentShader.h"
+#include "FixedColorWithLightingFragmentShader.h"
 #include "math/GeometrySphere.h"
 #include "IShaderFactory.h"
 #include <GL/glew.h>
@@ -15,11 +16,14 @@
 
 GraphicObjectSphere::GraphicObjectSphere(
     IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition, 
-    double radius, unsigned int approximationDepth, const std::tuple<float, float, float, float> &color) :
+    double radius, unsigned int approximationDepth, const std::tuple<float, float, float, float> &color,
+    bool lighting) :
     m_radius(radius),
     m_centerPosition(centerPosition) {
     m_vertexShader = shaderFactory.createTransformationVertexShader();
-    m_fragmentShader = shaderFactory.createFixedColorFragmentShader(color);
+    m_fragmentShader = lighting ? 
+        static_cast<FragmentShader*>(shaderFactory.createFixedColorWithLightingFragmentShader(color)) : 
+        static_cast<FragmentShader*>(shaderFactory.createFixedColorFragmentShader(color));
     m_shaderProgram = shaderFactory.createShaderProgram(*m_vertexShader, *m_fragmentShader);
 
     GeometrySphere sphere(LinearAlgebraVector(0, 0, 0), m_radius);

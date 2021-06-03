@@ -8,7 +8,7 @@
 class VertexShader;
 class FragmentShader;
 class TransformationVertexShader;
-class FixedColorFragmentShader;
+class FixedColorWithLightingFragmentShader;
 
 class IShaderRegistry {
     public:
@@ -20,7 +20,7 @@ class IShaderRegistry {
         virtual void unregisterVertexShader(VertexShader &shader) = 0;
         virtual void unregisterFragmentShader(FragmentShader &shader) = 0;
         virtual const std::vector<TransformationVertexShader*>& getAllTransformationVertexShader() const = 0;
-        virtual const std::vector<FixedColorFragmentShader*>& getAllFixedColorFragmentShader() const = 0;
+        virtual const std::vector<FixedColorWithLightingFragmentShader*>& getAllFixedColorWithLightingFragmentShader() const = 0;
 
     private:
         IShaderRegistry(const IShaderRegistry &) {}

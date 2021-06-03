@@ -1,6 +1,7 @@
 #include "ShaderFactory.h"
 #include "TransformationVertexShader.h"
 #include "FixedColorFragmentShader.h"
+#include "FixedColorWithLightingFragmentShader.h"
 #include "ShaderProgram.h"
 
 ShaderFactory::ShaderFactory(const ILogger &logger) :
@@ -13,10 +14,14 @@ TransformationVertexShader* ShaderFactory::createTransformationVertexShader() {
     return shader;
 }
 
-FixedColorFragmentShader* ShaderFactory::createFixedColorFragmentShader(const std::tuple<double, double, double, double> &color) {
-    auto shader = new FixedColorFragmentShader(m_logger, color, *this);
-    m_fixedColorFragmentShader.push_back(shader);
+FixedColorWithLightingFragmentShader* ShaderFactory::createFixedColorWithLightingFragmentShader(const std::tuple<double, double, double, double> &color) {
+    auto shader = new FixedColorWithLightingFragmentShader(m_logger, color, *this);
+    m_fixedColorWithLightingFragmentShader.push_back(shader);
     return shader;
+}
+
+FixedColorFragmentShader* ShaderFactory::createFixedColorFragmentShader(const std::tuple<double, double, double, double> &color) {
+    return new FixedColorFragmentShader(m_logger, color, *this);
 }
 
 ShaderProgram* ShaderFactory::createShaderProgram(VertexShader &vertexShader, FragmentShader &fragmentShader) {
@@ -38,13 +43,13 @@ void ShaderFactory::unregisterVertexShader(VertexShader &shader) {
 
 void ShaderFactory::unregisterFragmentShader(FragmentShader &shader) {
     std::remove(m_fragmentShader.begin(), m_fragmentShader.end(), &shader);
-    std::remove(m_fixedColorFragmentShader.begin(), m_fixedColorFragmentShader.end(), &shader);
+    std::remove(m_fixedColorWithLightingFragmentShader.begin(), m_fixedColorWithLightingFragmentShader.end(), &shader);
 }
 
 const std::vector<TransformationVertexShader*>& ShaderFactory::getAllTransformationVertexShader() const {
     return m_transformationVertexShader;
 }
 
-const std::vector<FixedColorFragmentShader*>& ShaderFactory::getAllFixedColorFragmentShader() const {
-    return m_fixedColorFragmentShader;
+const std::vector<FixedColorWithLightingFragmentShader*>& ShaderFactory::getAllFixedColorWithLightingFragmentShader() const {
+    return m_fixedColorWithLightingFragmentShader;
 }

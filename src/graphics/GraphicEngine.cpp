@@ -5,6 +5,7 @@
 #include "math/LinearAlgebraVector.h"
 #include "TransformationVertexShader.h"
 #include "FixedColorFragmentShader.h"
+#include "FixedColorWithLightingFragmentShader.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -217,7 +218,7 @@ void GraphicEngine::setCamera(const LinearAlgebraVector &position, const LinearA
         (*shader)->setTransformationViewToPerspective(transformationViewToPerspective);
     }
 
-    auto fixedColorFragmentShader = m_shaderFactory->getAllFixedColorFragmentShader();
+    auto fixedColorFragmentShader = m_shaderFactory->getAllFixedColorWithLightingFragmentShader();
 
     for (auto shader = fixedColorFragmentShader.begin(); shader != fixedColorFragmentShader.end(); ++shader) {
         (*shader)->setCameraPosition(position);
@@ -225,7 +226,7 @@ void GraphicEngine::setCamera(const LinearAlgebraVector &position, const LinearA
 }
 
 void GraphicEngine::configureLighting(const LinearAlgebraVector &lightPosition, float ambientLightStrength, float specularStrength, float specularExponent) {
-    auto fixedColorFragmentShader = m_shaderFactory->getAllFixedColorFragmentShader();
+    auto fixedColorFragmentShader = m_shaderFactory->getAllFixedColorWithLightingFragmentShader();
 
     for (auto shader = fixedColorFragmentShader.begin(); shader != fixedColorFragmentShader.end(); ++shader) {
         (*shader)->setLightPosition(lightPosition);

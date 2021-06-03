@@ -7,7 +7,7 @@
 
 class ShaderProgram;
 class TransformationVertexShader;
-class FixedColorFragmentShader;
+class FragmentShader;
 class GraphicObjectTriangle;
 class IShaderFactory;
 class LinearAlgebraVector;
@@ -16,7 +16,8 @@ class GraphicObjectSphere : public IGraphicObject {
     public: 
         GraphicObjectSphere(
             IShaderFactory &shaderFactory, const LinearAlgebraVector &centerPosition,
-            double radius, unsigned int approximationDepth, const std::tuple<float, float, float, float> &color);
+            double radius, unsigned int approximationDepth, const std::tuple<float, float, float, float> &color,
+            bool lighting);
         virtual ~GraphicObjectSphere();
         virtual void update() const;
         void setCenterPosition(const LinearAlgebraVector &centerPosition);
@@ -27,7 +28,7 @@ class GraphicObjectSphere : public IGraphicObject {
         LinearAlgebraVector m_centerPosition;
         std::vector<GraphicObjectTriangle*> m_triangles;
         TransformationVertexShader *m_vertexShader;
-        FixedColorFragmentShader *m_fragmentShader;
+        FragmentShader *m_fragmentShader;
         ShaderProgram *m_shaderProgram;
 };
 
